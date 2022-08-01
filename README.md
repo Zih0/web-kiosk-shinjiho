@@ -1,0 +1,2 @@
+# web-kiosk-shinjiho
+Kiosk.
