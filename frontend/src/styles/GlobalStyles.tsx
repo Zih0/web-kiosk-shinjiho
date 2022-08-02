@@ -2,12 +2,6 @@ import { css, createGlobalStyle } from 'styled-components'
 import { reset } from 'styled-reset'
 
 const customReset = css`
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
   ul,
   li {
     list-style: none;
@@ -34,7 +28,9 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   ${customReset}
 
-  *{
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 
