@@ -1,7 +1,14 @@
-import React from 'react'
+import styled, { ThemeProvider } from 'styled-components'
+
+import GlobalStyle from 'src/styles/GlobalStyles'
+import { theme } from 'src/styles/theme'
 
 function App() {
-  return <div className="App"></div>
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+    </ThemeProvider>
+  )
 }
 
 export default App
