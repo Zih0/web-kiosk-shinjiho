@@ -1,6 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
+import { css, createGlobalStyle } from 'styled-components'
 import { reset } from 'styled-reset'
-import { css } from 'styled-components'
 
 const customReset = css`
   *,
