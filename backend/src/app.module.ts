@@ -26,7 +26,7 @@ import { Product } from './products/products.entity'
     CategoriesModule,
     ProductsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
