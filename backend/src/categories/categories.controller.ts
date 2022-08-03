@@ -10,4 +10,9 @@ export class CategoriesController {
   findAll(): Promise<Category[]> {
     return this.categoriesService.findAll()
   }
+
+  @Post()
+  create(@Body() category: Category): Promise<void> {
+    return this.categoriesService.create(category)
+  }
 }
