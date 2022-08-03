@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ProductsService } from './products/products.service'
-import { ProductsController } from './products/products.controller'
+import { CategoriesModule } from './categories/categories.module'
+import { ProductsModule } from './products/products.module'
+import { Category } from './categories/categories.entity'
+import { Product } from './products/products.entity'
 
 @Module({
   imports: [
@@ -16,11 +18,13 @@ import { ProductsController } from './products/products.controller'
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [],
+      entities: [Category, Product],
       synchronize: true,
     }),
+    CategoriesModule,
+    ProductsModule,
   ],
-  controllers: [ProductsController],
-  providers: [ProductsService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
