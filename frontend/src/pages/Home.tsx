@@ -1,8 +1,26 @@
-import Link from 'src/lib/router/Link'
 import styled from 'styled-components'
+import useTranslation from 'src/hooks/useTranslation'
+import Link from 'src/lib/router/Link'
 
 const Home = () => {
-  return <Wrapper></Wrapper>
+  const t = useTranslation('home')
+
+  return (
+    <Wrapper>
+      <Title>{t('title')}</Title>
+      <Desc>{t('desc')}</Desc>
+      <ButtonWrapper>
+        <Button to="/main">
+          <ButtonTitle>{t('eatIn')}</ButtonTitle>
+          <ButtonDesc>{t('eatInCup')}</ButtonDesc>
+        </Button>
+        <Button to="/main">
+          <ButtonTitle>{t('takeOut')}</ButtonTitle>
+          <ButtonDesc>{t('takeOutCup')}</ButtonDesc>
+        </Button>
+      </ButtonWrapper>
+    </Wrapper>
+  )
 }
 
 export default Home
