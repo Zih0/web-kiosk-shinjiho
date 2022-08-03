@@ -17,6 +17,7 @@ const customReset = css`
 
   a {
     text-decoration: none;
+    color: ${({ theme }) => theme.color.black};
   }
 
   img {
@@ -37,8 +38,16 @@ const GlobalStyle = createGlobalStyle`
   html,
   body{
     font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-    font-display: fallback;
+    
+    max-width: 1080px;
+    width: 100%;
+    height: 1920px;
+    margin: 0 auto;
+
+    letter-spacing: -0.41px;
   }
+
+  
 
 `
 
