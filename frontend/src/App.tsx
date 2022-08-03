@@ -13,6 +13,12 @@ function App() {
         <Router />
       </ThemeProvider>
     </InternationalizationProvider>
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+        <Router />
+    </ThemeProvider>
   )
 }
 
