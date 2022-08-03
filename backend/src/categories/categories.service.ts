@@ -22,7 +22,7 @@ export class CategoriesService {
     })
   }
 
-  async create(category: Category): Promise<void> {
-    await this.categoriesRepository.save(category)
+  async create(category: Category): Promise<Category> {
+    return await this.categoriesRepository.save(category)
   }
 }
