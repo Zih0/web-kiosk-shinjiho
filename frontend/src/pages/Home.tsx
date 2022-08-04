@@ -26,8 +26,7 @@ const Home = () => {
 export default Home
 
 const Wrapper = styled.div`
-  margin-top: 417px;
-  padding: 0 60px;
+  padding: 416px 60px 0 60px;
 `
 
 const Title = styled.h1`
