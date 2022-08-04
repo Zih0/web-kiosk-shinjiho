@@ -18,7 +18,7 @@ export class Order extends BaseEntity {
   total_amount: number
 
   @CreateDateColumn()
-  paid_date: string
+  paid_date: Date
 
   @OneToMany(() => OrderToProduct, (orderToProduct) => orderToProduct.order)
   orderToProducts: OrderToProduct[]
