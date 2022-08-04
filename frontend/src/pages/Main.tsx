@@ -1,7 +1,11 @@
-import React from 'react'
+import Header from 'src/components/common/Header/Header'
 
 const Main = () => {
-  return <div>Main</div>
+  return (
+    <div>
+      <Header />
+    </div>
+  )
 }
 
 export default Main
