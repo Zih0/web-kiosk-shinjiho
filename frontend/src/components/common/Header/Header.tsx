@@ -23,8 +23,6 @@ export default Header
 
 const Wrapper = styled.div`
   width: 100%;
-
-  padding: 0 42px;
   padding-top: 48px;
 
   display: flex;

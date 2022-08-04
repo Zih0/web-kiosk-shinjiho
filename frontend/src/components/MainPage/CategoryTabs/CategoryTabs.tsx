@@ -1,7 +1,7 @@
-import { useContext, useState } from 'react'
+import { FC, useContext, useState } from 'react'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import styled from 'styled-components'
-import Button from '../common/Button/Button'
+import Button from '../../common/Button/Button'
 
 const DUMMY_CATEGORY = [
   { id: 1, kr_name: '커피', en_name: 'Coffee' },
@@ -12,13 +12,13 @@ const DUMMY_CATEGORY = [
   { id: 6, kr_name: '디저트', en_name: 'Dessert' },
 ]
 
-const CategoryTabs = () => {
-  const [selected, setSelected] = useState(1)
-  const { language } = useContext(InternationalizationContext)
+interface Props {
+  selected: number
+  onClickCategory: (id: number) => void
+}
 
-  const onClickCategory = (id: number) => {
-    setSelected(id)
-  }
+const CategoryTabs: FC<Props> = ({ selected, onClickCategory }) => {
+  const { language } = useContext(InternationalizationContext)
 
   return (
     <Wrapper>
