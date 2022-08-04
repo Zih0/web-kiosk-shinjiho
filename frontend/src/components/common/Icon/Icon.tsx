@@ -36,7 +36,6 @@ const Icon: FC<Props> = ({ name, size, rotate, fillColor, strokeColor, opacity, 
 }
 export default Icon
 
-/** styled component */
 const SVGWrap = styled.div<Pick<Props, 'size' | 'fillColor' | 'strokeColor' | 'opacity' | 'rotate'>>`
   width: ${({ size }) => `${size ? size : 'auto'}px`};
   height: ${({ size }) => `${size ? size : 'auto'}px`};
