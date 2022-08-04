@@ -1,5 +1,6 @@
 import { Category } from 'src/categories/categories.entity'
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { OrderToProduct } from 'src/order-to-product/order-to-product.entity'
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Product extends BaseEntity {
@@ -21,6 +22,15 @@ export class Product extends BaseEntity {
   @Column()
   option: string
 
-  @ManyToOne((type) => Category, (category) => category.products, { eager: false })
+  @Column({
+    default: false,
+  })
+  is_famous: boolean
+
+  @ManyToOne(() => Category, (category) => category.products, { eager: false })
+  @JoinColumn({ name: 'category_id' })
   category: Category
+
+  @OneToMany(() => OrderToProduct, (orderToProduct) => orderToProduct.product)
+  orderToProducts: OrderToProduct[]
 }

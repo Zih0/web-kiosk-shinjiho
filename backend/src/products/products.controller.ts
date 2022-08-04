@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Post, UsePipes } from '@nestjs/common'
-import { CreateCategoryRequestDto } from 'src/categories/dto/create-category.dto'
 import { ValidationPipe } from 'src/pipes/validation.pipe'
 import { ERROR_MESSAGE } from 'src/utils/error-message'
+import { CreateProductRequestDto } from './dto/create-product.dto'
 import { ProductSchema } from './dto/product.dto'
 import { Product } from './products.entity'
 import { ProductsService } from './products.service'
@@ -16,8 +16,8 @@ export class ProductsController {
   }
 
   @Post()
-  @UsePipes(new ValidationPipe<CreateCategoryRequestDto>(ProductSchema))
-  create(@Body() product: CreateCategoryRequestDto): Promise<void> {
+  @UsePipes(new ValidationPipe<CreateProductRequestDto>(ProductSchema))
+  create(@Body() product: CreateProductRequestDto): Promise<void> {
     try {
       this.productsService.create(product)
       return

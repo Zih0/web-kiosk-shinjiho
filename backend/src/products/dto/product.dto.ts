@@ -6,4 +6,5 @@ export const ProductSchema = Joi.object({
   price: Joi.number().required(),
   option: Joi.string(),
   thumbnail: Joi.string().required(),
+  category: Joi.number().required(),
 }).options({ abortEarly: false })
