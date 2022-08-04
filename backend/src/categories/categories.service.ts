@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Category } from './categories.entity'
+import { CreateCategoryRequestDto } from './dto/create-category.dto'
 
 @Injectable()
 export class CategoriesService {
@@ -22,7 +23,7 @@ export class CategoriesService {
     })
   }
 
-  async create(category: Category): Promise<void> {
+  async create(category: CreateCategoryRequestDto): Promise<void> {
     await this.categoriesRepository.save(category)
   }
 }

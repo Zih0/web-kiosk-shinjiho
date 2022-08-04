@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { CreateCategoryRequestDto } from 'src/categories/dto/create-category.dto'
 import { Repository } from 'typeorm'
 import { Product } from './products.entity'
 
@@ -14,7 +15,7 @@ export class ProductsService {
     return await this.productsRepository.find()
   }
 
-  async create(product: Product): Promise<void> {
+  async create(product: CreateCategoryRequestDto): Promise<void> {
     await this.productsRepository.save(product)
   }
 }
