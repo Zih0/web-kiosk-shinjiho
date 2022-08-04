@@ -1,9 +1,10 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common'
-import { ERROR_MESSAGE } from 'src/common/error-mesage'
+import { Body, Controller, Get, HttpException, HttpStatus, Post, UsePipes } from '@nestjs/common'
+import { ERROR_MESSAGE } from 'src/utils/error-message'
+import { ValidationPipe } from 'src/pipes/validation.pipe'
 import { Category } from './categories.entity'
 import { CategoriesService } from './categories.service'
-import { CreateCategoryResponseDto } from './dto/create-category.dto'
-import { CreateCategoryValidatorPipe } from './validation.pipe'
+import { CategorySchema } from './dto/category.dto'
+import { CreateCategoryRequestDto } from './dto/create-category.dto'
 
 @Controller('categories')
 export class CategoriesController {
@@ -15,7 +16,8 @@ export class CategoriesController {
   }
 
   @Post()
-  async create(@Body(new CreateCategoryValidatorPipe()) category: Category): Promise<CreateCategoryResponseDto> {
+  @UsePipes(new ValidationPipe<CreateCategoryRequestDto>(CategorySchema))
+  async create(@Body() category: CreateCategoryRequestDto): Promise<void> {
     try {
       const data = await this.categoriesService.create(category)
       return data
