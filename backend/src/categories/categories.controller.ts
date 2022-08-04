@@ -19,8 +19,8 @@ export class CategoriesController {
   @UsePipes(new ValidationPipe<CreateCategoryRequestDto>(CategorySchema))
   async create(@Body() category: CreateCategoryRequestDto): Promise<void> {
     try {
-      const data = await this.categoriesService.create(category)
-      return data
+      await this.categoriesService.create(category)
+      return
     } catch (e) {
       throw new HttpException(ERROR_MESSAGE.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR)
     }
