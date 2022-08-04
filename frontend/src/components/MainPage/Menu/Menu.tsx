@@ -3,9 +3,11 @@ import { Image } from 'src/components/common/Image/Image'
 import styled from 'styled-components'
 
 interface Props {
+  id: number
   imgUrl: string
   name: string
   price: number
+  option: Record<string, any[]>
 }
 
 const Menu: FC<Props> = ({ imgUrl, name, price }) => {

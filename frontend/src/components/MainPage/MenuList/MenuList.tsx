@@ -58,9 +58,11 @@ const MenuList: FC<Props> = ({ selected }) => {
         menuList.map((product: ProductType) => (
           <Menu
             key={product.id}
+            id={product.id}
             name={language === 'KR' ? product.kr_name : language === 'EN' ? product.en_name : ''}
             price={product.price}
             imgUrl={product.thumbnail}
+            option={product.option}
           />
         ))}
     </Wrapper>
