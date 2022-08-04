@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import useTranslation from 'src/hooks/useTranslation'
 import Link from 'src/lib/router/Link'
-import LanguageButton from 'src/components/common/LangaugeButton/LanguageButton'
+import LanguageButton from 'src/components/common/LanguageButton/LanguageButton'
 
 const Home = () => {
   const t = useTranslation('home')
