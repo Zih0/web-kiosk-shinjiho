@@ -1,12 +1,17 @@
 import styled from 'styled-components'
 import useTranslation from 'src/hooks/useTranslation'
 import Link from 'src/lib/router/Link'
+import LanguageButton from 'src/components/common/LangaugeButton/LanguageButton'
 
 const Home = () => {
   const t = useTranslation('home')
 
   return (
     <Wrapper>
+      <LanguageWrapper>
+        <LanguageButton />
+      </LanguageWrapper>
+
       <Title>{t('title')}</Title>
       <Desc>{t('desc')}</Desc>
       <ButtonWrapper>
@@ -26,10 +31,17 @@ const Home = () => {
 export default Home
 
 const Wrapper = styled.div`
-  padding: 416px 60px 0 60px;
+  padding: 0 60px;
+`
+
+const LanguageWrapper = styled.div`
+  margin-top: 48px;
+  display: flex;
+  justify-content: flex-end;
 `
 
 const Title = styled.h1`
+  margin-top: 256px;
   font-size: 72px;
   font-weight: 600;
   color: ${({ theme }) => theme.color.black};
