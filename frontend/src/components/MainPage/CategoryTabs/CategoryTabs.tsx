@@ -25,7 +25,7 @@ const CategoryTabs: FC<Props> = ({ selected, onClickCategory }) => {
       {DUMMY_CATEGORY.map((category) => (
         <Button
           key={category.id}
-          bgColor={selected === category.id ? 'gray800' : 'gray100'}
+          bgColor={selected === category.id ? 'black' : 'gray100'}
           onClick={() => onClickCategory(category.id)}
         >
           {language === 'KR' && category.kr_name}
