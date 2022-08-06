@@ -51,7 +51,7 @@ const LanguageWrapper = styled.div`
 `
 
 const Title = styled.h1`
-  margin-top: 256px;
+  margin-top: 100px;
   font-size: 72px;
   font-weight: 600;
   color: ${({ theme }) => theme.color.black};
