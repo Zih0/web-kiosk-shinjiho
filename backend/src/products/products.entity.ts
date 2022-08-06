@@ -27,6 +27,14 @@ export class Product extends BaseEntity {
   })
   is_famous: boolean
 
+  @Column({
+    default: false,
+  })
+  is_soldout: boolean
+
+  @Column()
+  category_id: number
+
   @ManyToOne(() => Category, (category) => category.products, { eager: false })
   @JoinColumn({ name: 'category_id' })
   category: Category
