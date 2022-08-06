@@ -10,6 +10,12 @@ export class OrderToProduct extends BaseEntity {
   @Column()
   count: number
 
+  @Column()
+  order_id: number
+
+  @Column()
+  product_id: number
+
   @ManyToOne(() => Order, (order) => order.orderToProducts)
   @JoinColumn({ name: 'order_id' })
   order: Order

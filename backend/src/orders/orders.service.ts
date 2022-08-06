@@ -34,7 +34,7 @@ export class OrdersService {
     return newOrder
   }
 
-  async createOrderToProduct(products: OrdersProduct[], newOrder: Order): Promise<void> {
+  async createOrderToProduct(products: OrdersProduct[], orderId: number): Promise<void> {
     const productCreateList = products.map(async (productInfo) => {
       const product = await this.productRepository.findOne({
         where: {
@@ -43,7 +43,7 @@ export class OrdersService {
       })
 
       await this.orderToProductRepository.save({
-        order: newOrder,
+        order_id: orderId,
         product: product,
         count: productInfo.count,
       })
@@ -64,7 +64,7 @@ export class OrdersService {
     const { products } = order
     const newOrder = await this.createOrder(order)
     const orderNumber = await this.findOrderNumber()
-    this.createOrderToProduct(products, newOrder)
+    this.createOrderToProduct(products, newOrder.id)
 
     return { ...newOrder, order_number: orderNumber }
   }

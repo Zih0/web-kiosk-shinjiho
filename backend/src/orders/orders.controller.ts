@@ -19,7 +19,6 @@ export class OrdersController {
       const orderHistory = await this.ordersService.create(order)
       return orderHistory
     } catch (e) {
-      console.log(e)
       throw new HttpException(ERROR_MESSAGE.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR)
     }
   }
