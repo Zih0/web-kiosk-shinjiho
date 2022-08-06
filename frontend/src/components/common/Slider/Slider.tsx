@@ -58,7 +58,7 @@ const SliderShow = styled.div<{ index: number }>`
 const Slide = styled.div`
   display: inline-block;
   width: 100%;
-  height: 300px;
+  height: 350px;
 
   img {
     width: 100%;
