@@ -4,7 +4,7 @@ import { Repository } from 'typeorm'
 import { CreateOrderRequestDto, CreateOrderResponseDto, OrdersProduct } from './dto/create-order.dto'
 import { Order } from './orders.entity'
 import { OrderToProduct } from 'src/order-to-product/order-to-product.entity'
-import { Product } from 'src/products/products.entity'
+import { Product } from 'src/products/entities/products.entity'
 import { getTodayDate } from 'src/utils/date-util'
 
 @Injectable()

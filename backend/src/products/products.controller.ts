@@ -3,7 +3,7 @@ import { ValidationPipe } from 'src/pipes/validation.pipe'
 import { ERROR_MESSAGE } from 'src/utils/error-message'
 import { CreateProductRequestDto } from './dto/create-product.dto'
 import { ProductSchema } from './dto/product.dto'
-import { Product } from './products.entity'
+import { Product } from './entities/products.entity'
 import { ProductsService } from './products.service'
 
 @Controller('products')
