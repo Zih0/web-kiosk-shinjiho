@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { BaseEntity, Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { ProductOptionDetail } from './product-option-detail.entity'
 
 @Entity('product_option')
@@ -18,5 +18,5 @@ export class ProductOption extends BaseEntity {
   is_required: boolean
 
   @OneToMany(() => ProductOptionDetail, (productOptionDetail) => productOptionDetail.option, { eager: true })
-  optionDetails: ProductOptionDetail[]
+  option_details: ProductOptionDetail[]
 }

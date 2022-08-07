@@ -20,7 +20,7 @@ export class ProductOptionDetail extends BaseEntity {
   @Column()
   option_id: number
 
-  @ManyToOne(() => ProductOption, (productOption) => productOption.optionDetails)
+  @ManyToOne(() => ProductOption, (productOption) => productOption.option_details, { eager: false })
   @JoinColumn({ name: 'option_id' })
   option: ProductOption
 }
