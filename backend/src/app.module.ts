@@ -3,12 +3,8 @@ import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CategoriesModule } from './categories/categories.module'
 import { ProductsModule } from './products/products.module'
-import { Category } from './categories/categories.entity'
-import { Product } from './products/products.entity'
 import { OrdersModule } from './orders/orders.module'
-import { Order } from './orders/orders.entity'
 import { OrderToProductModule } from './order-to-product/order-to-product.module'
-import { OrderToProduct } from './order-to-product/order-to-product.entity'
 
 @Module({
   imports: [
@@ -22,8 +18,9 @@ import { OrderToProduct } from './order-to-product/order-to-product.entity'
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
-      entities: [Category, Product, Order, OrderToProduct],
+      entities: ['dist/**/*.entity.js'],
       synchronize: true,
+      timezone: 'Asia/Seoul',
     }),
     CategoriesModule,
     ProductsModule,

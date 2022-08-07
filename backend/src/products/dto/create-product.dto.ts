@@ -1,9 +1,11 @@
-import { Category } from 'src/categories/categories.entity'
-
-export class CreateProductRequestDto {
+export class CreateProductDto {
   public kr_name: string
   public en_name: string
   public price: number
   public thumbnail: string
-  public category: Category
+  public category_id: number
+}
+
+export class CreateProductRequestDto extends CreateProductDto {
+  public options: number[]
 }

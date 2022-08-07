@@ -1,4 +1,4 @@
-import { Product } from 'src/products/products.entity'
+import { Product } from 'src/products/entities/products.entity'
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
