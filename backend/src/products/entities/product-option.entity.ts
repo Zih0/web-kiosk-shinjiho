@@ -12,10 +12,11 @@ export class ProductOption extends BaseEntity {
   @Column()
   en_name: string
 
-  @Column()
-  option_id: string
+  @Column({
+    default: false,
+  })
+  isRequired: boolean
 
   @OneToMany(() => ProductOptionDetail, (productOptionDetail) => productOptionDetail.option, { eager: true })
-  @JoinColumn({ name: 'option_id' })
   optionDetails: ProductOptionDetail[]
 }
