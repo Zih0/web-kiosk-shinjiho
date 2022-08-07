@@ -1,4 +1,8 @@
 {
   "back": "처음으로",
-  "title": "주문하기"
+  "title": "주문하기",
+  "cancel": "주문취소",
+  "order": "주문하기",
+  "totalCount": "총 주문수량",
+  "price": "결제금액"
 }
