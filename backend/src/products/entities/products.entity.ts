@@ -6,6 +6,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -42,11 +43,19 @@ export class Product extends BaseEntity {
   @Column()
   category_id: number
 
+  @Column({ nullable: true })
+  option: string
+
   @ManyToOne(() => Category, (category) => category.products, { eager: false })
   @JoinColumn({ name: 'category_id' })
   category: Category
 
   @ManyToMany(() => ProductOption)
+  @JoinTable({
+    name: 'product_to_option',
+    joinColumn: { name: 'product_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'option_id', referencedColumnName: 'id' },
+  })
   options: ProductOption[]
 
   @OneToMany(() => OrderToProduct, (orderToProduct) => orderToProduct.product)
