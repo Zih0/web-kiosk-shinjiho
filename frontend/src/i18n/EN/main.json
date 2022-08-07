@@ -1,4 +1,8 @@
 {
   "back": "back",
-  "title": "Order"
+  "title": "Order",
+  "cancel": "Cancel",
+  "order": "Order",
+  "totalCount": "Total Count",
+  "price": "Price"
 }

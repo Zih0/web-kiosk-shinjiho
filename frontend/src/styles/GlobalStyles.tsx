@@ -45,6 +45,10 @@ const GlobalStyle = createGlobalStyle`
     letter-spacing: -0.41px;
   }
 
+  #root {
+    height: 100%
+  }
+
 `
 
 export default GlobalStyle

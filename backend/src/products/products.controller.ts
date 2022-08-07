@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, UsePipes } from '@nestjs/common'
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UsePipes } from '@nestjs/common'
 import { ValidationPipe } from 'src/pipes/validation.pipe'
 import { ERROR_MESSAGE } from 'src/utils/error-message'
 import { CreateProductRequestDto } from './dto/create-product.dto'
@@ -13,6 +13,11 @@ export class ProductsController {
   @Get()
   findAll(): Promise<Product[]> {
     return this.productsService.findAll()
+  }
+
+  @Get(':id')
+  findById(@Param('id') id: string): Promise<Product[]> {
+    return this.productsService.findOneById(+id)
   }
 
   @Post()

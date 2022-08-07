@@ -2,29 +2,39 @@ import styled from 'styled-components'
 import useTranslation from 'src/hooks/useTranslation'
 import Link from 'src/lib/router/Link'
 import LanguageButton from 'src/components/common/LanguageButton/LanguageButton'
+import Slider from 'src/components/common/Slider/Slider'
 
 const Home = () => {
   const t = useTranslation('home')
 
   return (
-    <Wrapper>
-      <LanguageWrapper>
-        <LanguageButton />
-      </LanguageWrapper>
+    <>
+      <Slider
+        imgList={[
+          'https://www.ediya.com/files/banner/IMG_1655429441772.jpg',
+          'https://www.ediya.com/files/banner/IMG_1650949894894.jpg',
+          'https://www.ediya.com/files/banner/IMG_1649291403353.jpg',
+        ]}
+      />
+      <Wrapper>
+        <LanguageWrapper>
+          <LanguageButton />
+        </LanguageWrapper>
 
-      <Title>{t('title')}</Title>
-      <Desc>{t('desc')}</Desc>
-      <ButtonWrapper>
-        <Button to="/main">
-          <ButtonTitle>{t('eatIn')}</ButtonTitle>
-          <ButtonDesc>{t('eatInCup')}</ButtonDesc>
-        </Button>
-        <Button to="/main">
-          <ButtonTitle>{t('takeOut')}</ButtonTitle>
-          <ButtonDesc>{t('takeOutCup')}</ButtonDesc>
-        </Button>
-      </ButtonWrapper>
-    </Wrapper>
+        <Title>{t('title')}</Title>
+        <Desc>{t('desc')}</Desc>
+        <ButtonWrapper>
+          <Button to="/main">
+            <ButtonTitle>{t('eatIn')}</ButtonTitle>
+            <ButtonDesc>{t('eatInCup')}</ButtonDesc>
+          </Button>
+          <Button to="/main">
+            <ButtonTitle>{t('takeOut')}</ButtonTitle>
+            <ButtonDesc>{t('takeOutCup')}</ButtonDesc>
+          </Button>
+        </ButtonWrapper>
+      </Wrapper>
+    </>
   )
 }
 
@@ -41,7 +51,7 @@ const LanguageWrapper = styled.div`
 `
 
 const Title = styled.h1`
-  margin-top: 256px;
+  margin-top: 100px;
   font-size: 72px;
   font-weight: 600;
   color: ${({ theme }) => theme.color.black};
