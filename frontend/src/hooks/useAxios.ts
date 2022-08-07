@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 
 export const useAxios = <T, E>(asyncFn: () => Promise<T>) => {
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false)
   const [error, setError] = useState<E | null>(null)
   const [data, setData] = useState<T | null>(null)
 
@@ -22,5 +22,5 @@ export const useAxios = <T, E>(asyncFn: () => Promise<T>) => {
     process()
   }, [process])
 
-  return { loading, error, data }
+  return { isLoading, error, data }
 }
