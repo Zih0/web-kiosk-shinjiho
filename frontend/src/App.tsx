@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyle from 'src/styles/GlobalStyles'
 import { theme } from 'src/styles/theme'
 import Router from './Router'
+import ServerStateProvider from './contexts/ServerStateCacheContext'
 import InternationalizationProvider from 'src/contexts/InternationalizationContext'
 import { initAxiosConfig } from './api'
 
@@ -13,12 +14,14 @@ function App() {
   }, [])
 
   return (
-    <InternationalizationProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Router />
-      </ThemeProvider>
-    </InternationalizationProvider>
+    <ServerStateProvider>
+      <InternationalizationProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <Router />
+        </ThemeProvider>
+      </InternationalizationProvider>
+    </ServerStateProvider>
   )
 }
 
