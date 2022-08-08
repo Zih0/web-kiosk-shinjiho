@@ -53,6 +53,7 @@ export default Modal
 
 const Wrapper = styled.div`
   padding: 90px 72px 64px 72px;
+  min-width: 796px;
   min-height: 1058px;
 
   display: flex;
@@ -75,6 +76,8 @@ const Title = styled.h3`
 
 const Content = styled.div`
   flex: 1;
+  display: flex;
+  justify-content: center;
 `
 
 const ButtonWrapper = styled.div`
