@@ -164,6 +164,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
                     >
                       {language === 'KR' && detail.kr_name}
                       {language === 'EN' && detail.en_name}
+                      {detail.price > 0 && <ExtraPrice>+{detail.price}</ExtraPrice>}
                     </OptionDetailLabel>
                   </React.Fragment>
                 ))}
@@ -243,6 +244,7 @@ const OptionDetailLabel = styled.label`
   height: 80px;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -256,4 +258,8 @@ const OptionDetailLabel = styled.label`
     border: 2px solid ${({ theme }) => theme.color.red};
     color: ${({ theme }) => theme.color.red};
   }
+`
+
+const ExtraPrice = styled.p`
+  font-size: 20px;
 `
