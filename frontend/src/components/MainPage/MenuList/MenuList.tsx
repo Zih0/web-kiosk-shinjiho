@@ -1,6 +1,7 @@
 import { FC, useContext, useEffect, useState } from 'react'
 import { getProductsAPI } from 'src/api/product/product'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { useAxios } from 'src/hooks/useAxios'
 
 import { ProductType } from 'src/types/api/product'
 import styled from 'styled-components'
@@ -12,30 +13,22 @@ interface Props {
 
 const MenuList: FC<Props> = ({ selected }) => {
   const { language } = useContext(InternationalizationContext)
-  const [menuList, setMenuList] = useState<ProductType[]>([])
+  const { isLoading, data: menuList, refetch } = useAxios(['menuList', `${selected}`], () => getProductsAPI(selected))
 
-  const getMenuList = async (selected: number) => {
-    const data = await getProductsAPI(selected)
-    setMenuList(data)
-  }
-
-  useEffect(() => {
-    getMenuList(selected)
-  }, [selected])
+  if (isLoading) return <></>
 
   return (
     <Wrapper>
-      {menuList &&
-        menuList.map((product: ProductType) => (
-          <Menu
-            key={product.id}
-            id={product.id}
-            name={language === 'KR' ? product.kr_name : language === 'EN' ? product.en_name : ''}
-            price={product.price}
-            imgUrl={product.thumbnail}
-            option={product.option}
-          />
-        ))}
+      {menuList?.map((product: ProductType) => (
+        <Menu
+          key={product.id}
+          id={product.id}
+          name={language === 'KR' ? product.kr_name : language === 'EN' ? product.en_name : ''}
+          price={product.price}
+          imgUrl={product.thumbnail}
+          option={product.option}
+        />
+      ))}
     </Wrapper>
   )
 }
@@ -43,8 +36,25 @@ const MenuList: FC<Props> = ({ selected }) => {
 export default MenuList
 
 const Wrapper = styled.div`
+  width: calc(100% + 20px);
   margin-top: 60px;
+
+  height: 894px;
+
+  overflow-y: auto;
+
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 312px);
   gap: 30px;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: ${({ theme }) => theme.color.gray100};
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.color.gray500};
+    border-radius: 8px;
+  }
 `
