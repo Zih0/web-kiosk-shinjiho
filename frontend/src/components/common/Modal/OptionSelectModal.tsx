@@ -1,4 +1,5 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
+import { useCartAction } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useTranslation from 'src/hooks/useTranslation'
 import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/product'
@@ -13,7 +14,8 @@ interface Props {
   onClose: () => void
   id: number
   imgUrl: string
-  name: string
+  krName: string
+  enName: string
   price: number
   options: ProductOptionType[]
 }
@@ -21,8 +23,9 @@ interface Props {
 const MIN_COUNT = 1
 const MAX_COUNT = 9
 
-const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, options }) => {
+const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enName, price, options }) => {
   const { language } = useContext(InternationalizationContext)
+  const { add } = useCartAction()
   const t = useTranslation('modal')
   const [count, setCount] = useState(MIN_COUNT)
   const [extraPrice, setExtraPrice] = useState(0)
@@ -90,6 +93,15 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
 
   const onSubmit = () => {
     if (!checkRequiredOptions()) return
+
+    add({
+      count,
+      id,
+      price,
+      kr_name: krName,
+      en_name: enName,
+      thumbnail: imgUrl,
+    })
     closeCallback()
   }
 
@@ -107,7 +119,10 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
       <Wrapper>
         <LeftSection>
           <Image src={imgUrl} width={224} height={224} />
-          <ProductName>{name}</ProductName>
+          <ProductName>
+            {language === 'KR' && krName}
+            {language === 'EN' && enName}
+          </ProductName>
           <ProductPrice>{priceToString((price + extraPrice) * count)}</ProductPrice>
           <CountWrapper>
             <Icon

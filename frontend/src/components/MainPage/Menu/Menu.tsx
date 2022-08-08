@@ -1,18 +1,21 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import { Image } from 'src/components/common/Image/Image'
 import OptionSelectModal from 'src/components/common/Modal/OptionSelectModal'
+import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import { ProductOptionType } from 'src/types/api/product'
 import styled from 'styled-components'
 
 interface Props {
   id: number
   imgUrl: string
-  name: string
+  krName: string
+  enName: string
   price: number
   options: ProductOptionType[]
 }
 
-const Menu: FC<Props> = ({ id, imgUrl, name, price, options }) => {
+const Menu: FC<Props> = ({ id, imgUrl, krName, enName, price, options }) => {
+  const { language } = useContext(InternationalizationContext)
   const [open, setOpen] = useState(false)
 
   const onClose = () => {
@@ -27,7 +30,10 @@ const Menu: FC<Props> = ({ id, imgUrl, name, price, options }) => {
     <>
       <Wrapper onClick={onClickMenu}>
         <Image width={216} height={216} src={imgUrl} />
-        <MenuName>{name}</MenuName>
+        <MenuName>
+          {language === 'KR' && krName}
+          {language === 'EN' && enName}
+        </MenuName>
         <MenuPrice>{price}</MenuPrice>
       </Wrapper>
       <OptionSelectModal
@@ -35,7 +41,8 @@ const Menu: FC<Props> = ({ id, imgUrl, name, price, options }) => {
         onClose={onClose}
         id={id}
         imgUrl={imgUrl}
-        name={name}
+        krName={krName}
+        enName={enName}
         price={price}
         options={options}
       />

@@ -1,13 +1,25 @@
 import { createContext, FC, useContext, useMemo, useRef, useState } from 'react'
 import { ProductType } from 'src/types/api/product'
 
-export interface CartItemType extends ProductType {
-  cartId: number
+export interface CartItemType extends Omit<ProductType, 'options' | 'is_famous' | 'is_soldout'> {
+  cartId?: number
   count: number
 }
 
+interface CartActionType {
+  add: (cartItem: CartItemType) => void
+  remove: (id: number) => void
+  countUp(id: number): void
+  countDown(id: number): void
+}
+
 export const CartContext = createContext<CartItemType[]>([])
-export const CartActionContext = createContext<any>({})
+export const CartActionContext = createContext<CartActionType>({
+  add: () => {},
+  remove: () => {},
+  countUp: () => {},
+  countDown: () => {},
+})
 
 const MAX_COUNT = 10
 const MIN_COUNT = 1

@@ -23,7 +23,8 @@ const MenuList: FC<Props> = ({ selected }) => {
         <Menu
           key={product.id}
           id={product.id}
-          name={language === 'KR' ? product.kr_name : language === 'EN' ? product.en_name : ''}
+          krName={product.kr_name}
+          enName={product.en_name}
           price={product.price}
           imgUrl={product.thumbnail}
           options={product.options}
