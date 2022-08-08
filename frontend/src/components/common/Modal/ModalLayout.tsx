@@ -12,7 +12,11 @@ const ModalLayout: FC<Props> = ({ open, children, onClose }) => {
   const dimRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   // animation을 위한 state
-  const [animationTrigger, setAnimationTrigger] = useState<boolean>(open)
+  const [animationTrigger, setAnimationTrigger] = useState(open)
+
+  useEffect(() => {
+    if (open && !animationTrigger) setAnimationTrigger(true)
+  }, [open, animationTrigger])
 
   const onAnimationEnd = useCallback(() => {
     if (!open && animationTrigger) setAnimationTrigger(false)
