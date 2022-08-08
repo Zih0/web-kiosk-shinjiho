@@ -185,13 +185,12 @@ const Wrapper = styled.div`
   margin-top: 60px;
   display: flex;
 
-  gap: 38px;
+  gap: 60px;
 `
 
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `
 
