@@ -54,9 +54,19 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
           <ProductName>{name}</ProductName>
           <ProductPrice>{priceToString(price)}</ProductPrice>
           <CountWrapper>
-            <Icon name="iconCircleMinus" size={36} onClick={onClickMinus} />
+            <Icon
+              name="iconCircleMinus"
+              size={36}
+              onClick={onClickMinus}
+              strokeColor={count === MIN_COUNT ? 'gray300' : 'black'}
+            />
             <span>{count}</span>
-            <Icon name="iconCirclePlus" size={36} onClick={onClickPlus} />
+            <Icon
+              name="iconCirclePlus"
+              size={36}
+              onClick={onClickPlus}
+              strokeColor={count === MAX_COUNT ? 'gray300' : 'black'}
+            />
           </CountWrapper>
         </LeftSection>
         <RightSection>
