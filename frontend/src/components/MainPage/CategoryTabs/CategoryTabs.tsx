@@ -1,7 +1,7 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC, useContext } from 'react'
 import { getCategoriesAPI } from 'src/api/category/category'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
-import { CategoryType } from 'src/types/api/category'
+import { useAxios } from 'src/hooks/useAxios'
 import styled from 'styled-components'
 import Button from '../../common/Button/Button'
 
@@ -11,21 +11,14 @@ interface Props {
 }
 
 const CategoryTabs: FC<Props> = ({ selected, onClickCategory }) => {
-  const [categories, setCategories] = useState<CategoryType[]>([])
   const { language } = useContext(InternationalizationContext)
+  const { isLoading, data: categories } = useAxios(['categories'], getCategoriesAPI)
 
-  const getCategories = async () => {
-    const data = await getCategoriesAPI()
-    setCategories(data)
-  }
-
-  useEffect(() => {
-    getCategories()
-  }, [])
+  if (isLoading) return <></>
 
   return (
     <Wrapper>
-      {categories.map((category) => (
+      {categories?.map((category) => (
         <Button
           key={category.id}
           bgColor={selected === category.id ? 'black' : 'gray100'}
