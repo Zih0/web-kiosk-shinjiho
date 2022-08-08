@@ -1,11 +1,11 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 import { Image } from '../Image/Image'
 import Modal from './Modal'
 
 interface Props {
   open: boolean
-  onClose?: VoidFunction
+  onClose: () => void
 }
 
 const CardInputModal: FC<Props> = ({ open, onClose }) => {
