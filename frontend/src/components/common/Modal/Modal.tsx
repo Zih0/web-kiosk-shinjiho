@@ -28,11 +28,6 @@ const Modal: FC<Props> = ({
   submitText,
   backgroundLock,
 }) => {
-  const submitCallback = () => {
-    onSubmit && onSubmit()
-    onClose && onClose()
-  }
-
   return (
     <ModalLayout open={open} onClose={onClose} backgroundLock={backgroundLock}>
       <Wrapper>
@@ -45,7 +40,7 @@ const Modal: FC<Props> = ({
             </Button>
           )}
           {hasSubmitButton && (
-            <Button width="full" bgColor="red" onClick={submitCallback}>
+            <Button width="full" bgColor="red" onClick={onSubmit}>
               {submitText || '확인'}
             </Button>
           )}
