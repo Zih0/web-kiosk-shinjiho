@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useTranslation from 'src/hooks/useTranslation'
 import { ProductOptionType } from 'src/types/api/product'
@@ -25,6 +25,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
   const { language } = useContext(InternationalizationContext)
   const t = useTranslation('modal')
   const [count, setCount] = useState(1)
+  const [selectedOption, setSelectedOption] = useState<any>({})
 
   const onClickMinus = () => {
     if (count === MIN_COUNT) return
@@ -38,10 +39,22 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
     setCount((prev) => prev + 1)
   }
 
+  const onChangeOptionDetail = (optionId: number, detailId: number) => {
+    setSelectedOption((prev: any) => ({
+      ...prev,
+      [optionId]: detailId,
+    }))
+  }
+
+  const closeCallback = () => {
+    onClose && onClose()
+    setSelectedOption({})
+  }
+
   return (
     <Modal
       open={open}
-      onClose={onClose}
+      onClose={closeCallback}
       title={t('optionTitle')}
       closeText={t('optionCancelText')}
       submitText={t('optionSubmitText')}
@@ -52,7 +65,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
         <LeftSection>
           <Image src={imgUrl} width={224} height={224} />
           <ProductName>{name}</ProductName>
-          <ProductPrice>{priceToString(price)}</ProductPrice>
+          <ProductPrice>{priceToString(price * count)}</ProductPrice>
           <CountWrapper>
             <Icon
               name="iconCircleMinus"
@@ -78,10 +91,20 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
               </OptionTitle>
               <OptionDetailList>
                 {option.option_details.map((detail) => (
-                  <OptionDetailButton key={detail.id}>
-                    {language === 'KR' && detail.kr_name}
-                    {language === 'EN' && detail.en_name}
-                  </OptionDetailButton>
+                  <React.Fragment key={detail.id}>
+                    <input
+                      type="radio"
+                      id={`radio-${detail.id}`}
+                      value={detail.id}
+                      checked={selectedOption[option.id] === detail.id}
+                      onChange={() => onChangeOptionDetail(option.id, detail.id)}
+                      hidden
+                    />
+                    <OptionDetailLabel htmlFor={`radio-${detail.id}`} key={detail.id}>
+                      {language === 'KR' && detail.kr_name}
+                      {language === 'EN' && detail.en_name}
+                    </OptionDetailLabel>
+                  </React.Fragment>
                 ))}
               </OptionDetailList>
             </div>
@@ -154,7 +177,7 @@ const OptionDetailList = styled.div`
   gap: 32px;
 `
 
-const OptionDetailButton = styled.button`
+const OptionDetailLabel = styled.label`
   padding-bottom: 14px;
   width: 80px;
   height: 80px;
@@ -168,4 +191,9 @@ const OptionDetailButton = styled.button`
 
   font-size: 20px;
   line-height: 140%;
+
+  input[type='radio']:checked + & {
+    border: 2px solid ${({ theme }) => theme.color.red};
+    color: ${({ theme }) => theme.color.red};
+  }
 `
