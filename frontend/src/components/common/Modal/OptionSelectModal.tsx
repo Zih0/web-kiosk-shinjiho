@@ -1,7 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from 'react'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useTranslation from 'src/hooks/useTranslation'
-import { ProductOptionType } from 'src/types/api/product'
+import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/product'
 import { priceToString } from 'src/utils/priceUtil'
 import styled from 'styled-components'
 import Icon from '../Icon/Icon'
@@ -24,7 +24,8 @@ const MAX_COUNT = 9
 const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, options }) => {
   const { language } = useContext(InternationalizationContext)
   const t = useTranslation('modal')
-  const [count, setCount] = useState(1)
+  const [count, setCount] = useState(MIN_COUNT)
+  const [extraPrice, setExtraPrice] = useState(0)
   const [selectedOption, setSelectedOption] = useState<any>({})
 
   const onClickMinus = () => {
@@ -39,16 +40,24 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
     setCount((prev) => prev + 1)
   }
 
-  const onChangeOptionDetail = (optionId: number, detailId: number) => {
+  const onChangeOptionDetail = (optionId: number, detail: ProductOptionDetailType) => {
     setSelectedOption((prev: any) => ({
       ...prev,
-      [optionId]: detailId,
+      [optionId]: detail.id,
     }))
+
+    if (!detail.price) return
+
+    plusExtraPrice(detail.price)
   }
 
   const closeCallback = () => {
     onClose && onClose()
     setSelectedOption({})
+  }
+
+  const plusExtraPrice = (price: number) => {
+    setExtraPrice(price)
   }
 
   return (
@@ -65,7 +74,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
         <LeftSection>
           <Image src={imgUrl} width={224} height={224} />
           <ProductName>{name}</ProductName>
-          <ProductPrice>{priceToString(price * count)}</ProductPrice>
+          <ProductPrice>{priceToString(price * count + extraPrice)}</ProductPrice>
           <CountWrapper>
             <Icon
               name="iconCircleMinus"
@@ -97,7 +106,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
                       id={`radio-${detail.id}`}
                       value={detail.id}
                       checked={selectedOption[option.id] === detail.id}
-                      onChange={() => onChangeOptionDetail(option.id, detail.id)}
+                      onChange={() => onChangeOptionDetail(option.id, detail)}
                       hidden
                     />
                     <OptionDetailLabel htmlFor={`radio-${detail.id}`} key={detail.id}>
@@ -118,7 +127,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
 export default OptionSelectModal
 
 const Wrapper = styled.div`
-  margin-top: 80px;
+  margin-top: 60px;
   display: flex;
 
   gap: 38px;
@@ -127,6 +136,7 @@ const Wrapper = styled.div`
 const LeftSection = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 `
 
