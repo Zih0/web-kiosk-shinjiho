@@ -69,6 +69,6 @@ const Count = styled.p`
 
 const RemoveIcon = styled(Icon)`
   position: absolute;
-  top: -5px;
-  right: -8px;
+  top: 4px;
+  right: 4px;
 `
