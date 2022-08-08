@@ -26,7 +26,26 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
   const t = useTranslation('modal')
   const [count, setCount] = useState(MIN_COUNT)
   const [extraPrice, setExtraPrice] = useState(0)
-  const [selectedOption, setSelectedOption] = useState<any>({})
+  const [selectedOption, setSelectedOption] = useState<Record<string, number>>({})
+
+  const requireOptionIdList: number[] = options.reduce((requiredIdList: number[], option) => {
+    if (option.is_required) {
+      requiredIdList.push(option.id)
+    }
+    return requiredIdList
+  }, [])
+
+  const checkRequiredOptions = () => {
+    const notSelectedRequiredOptions = requireOptionIdList.filter(
+      (requiredId) =>
+        !Object.keys(selectedOption)
+          .map((o) => +o)
+          .includes(requiredId),
+    )
+
+    if (notSelectedRequiredOptions.length) return false
+    return true
+  }
 
   const onClickMinus = () => {
     if (count === MIN_COUNT) return
@@ -40,15 +59,28 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
     setCount((prev) => prev + 1)
   }
 
-  const onChangeOptionDetail = (optionId: number, detail: ProductOptionDetailType) => {
-    setSelectedOption((prev: any) => ({
+  const onClickOptionDetail = (optionId: number, detail: ProductOptionDetailType) => {
+    if (selectedOption[optionId] === detail.id) {
+      setSelectedOption((prev) => ({
+        ...prev,
+        [optionId]: null,
+      }))
+
+      if (detail.price) {
+        setExtraPrice(0)
+      }
+
+      return
+    }
+
+    setSelectedOption((prev) => ({
       ...prev,
       [optionId]: detail.id,
     }))
 
     if (!detail.price) return
 
-    plusExtraPrice(detail.price)
+    setExtraPrice(detail.price)
   }
 
   const closeCallback = () => {
@@ -56,14 +88,16 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
     setSelectedOption({})
   }
 
-  const plusExtraPrice = (price: number) => {
-    setExtraPrice(price)
+  const onSubmit = () => {
+    if (!checkRequiredOptions()) return
+    closeCallback()
   }
 
   return (
     <Modal
       open={open}
       onClose={closeCallback}
+      onSubmit={onSubmit}
       title={t('optionTitle')}
       closeText={t('optionCancelText')}
       submitText={t('optionSubmitText')}
@@ -97,6 +131,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
               <OptionTitle>
                 {language === 'KR' && option.kr_name}
                 {language === 'EN' && option.en_name}
+                {option.is_required && '*'}
               </OptionTitle>
               <OptionDetailList>
                 {option.option_details.map((detail) => (
@@ -105,11 +140,15 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
                       type="radio"
                       id={`radio-${detail.id}`}
                       value={detail.id}
+                      required={option.is_required}
                       checked={selectedOption[option.id] === detail.id}
-                      onChange={() => onChangeOptionDetail(option.id, detail)}
                       hidden
                     />
-                    <OptionDetailLabel htmlFor={`radio-${detail.id}`} key={detail.id}>
+                    <OptionDetailLabel
+                      htmlFor={`radio-${detail.id}`}
+                      key={detail.id}
+                      onClick={() => onClickOptionDetail(option.id, detail)}
+                    >
                       {language === 'KR' && detail.kr_name}
                       {language === 'EN' && detail.en_name}
                     </OptionDetailLabel>
