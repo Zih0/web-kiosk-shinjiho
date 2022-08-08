@@ -26,7 +26,7 @@ const MenuList: FC<Props> = ({ selected }) => {
           name={language === 'KR' ? product.kr_name : language === 'EN' ? product.en_name : ''}
           price={product.price}
           imgUrl={product.thumbnail}
-          option={product.option}
+          options={product.options}
         />
       ))}
     </Wrapper>
