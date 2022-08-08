@@ -24,9 +24,9 @@ export const Image: FC<Props> = ({ name, src, width, height, borderRadius, alt, 
 }
 
 const ImgWrapper = styled.div<Pick<Props, 'width' | 'height' | 'borderRadius'>>`
-  width: ${({ width }) => `${width}px`};
-  height: ${({ height }) => `${height}px`};
-  border-radius: ${({ borderRadius }) => `${borderRadius}px`};
+  width: ${({ width }) => width && `${width}px`};
+  height: ${({ height }) => height && `${height}px`};
+  border-radius: ${({ borderRadius }) => borderRadius && `${borderRadius}px`};
 `
 
 const ImageComponent = styled.img<Pick<Props, 'borderRadius'>>`
