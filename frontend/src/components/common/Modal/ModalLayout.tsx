@@ -111,12 +111,12 @@ const Dimmer = styled.div<{ open: boolean }>`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
 
   ${({ open }) =>
     css`
-      animation: ${open ? fadeIn : fadeOut} 0.3s forwards;
+      animation: ${open ? fadeIn : fadeOut} 0.4s forwards;
     `};
 `
 
@@ -125,6 +125,6 @@ const Content = styled.div<{ open: boolean }>`
 
   ${({ open }) =>
     css`
-      animation: ${open ? slideUp : fadeOut} 0.3s forwards;
+      animation: ${open ? slideUp : fadeOut} 0.4s forwards;
     `};
 `
