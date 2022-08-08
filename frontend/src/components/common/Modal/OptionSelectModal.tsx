@@ -142,6 +142,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
                       value={detail.id}
                       required={option.is_required}
                       checked={selectedOption[option.id] === detail.id}
+                      readOnly
                       hidden
                     />
                     <OptionDetailLabel
@@ -227,18 +228,17 @@ const OptionDetailList = styled.div`
 `
 
 const OptionDetailLabel = styled.label`
-  padding-bottom: 14px;
   width: 80px;
   height: 80px;
 
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: center;
 
   border: 1px solid ${({ theme }) => theme.color.black};
   border-radius: 24px;
 
-  font-size: 20px;
+  font-size: 24px;
   line-height: 140%;
 
   input[type='radio']:checked + & {
