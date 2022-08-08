@@ -74,7 +74,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, name, price, 
         <LeftSection>
           <Image src={imgUrl} width={224} height={224} />
           <ProductName>{name}</ProductName>
-          <ProductPrice>{priceToString(price * count + extraPrice)}</ProductPrice>
+          <ProductPrice>{priceToString((price + extraPrice) * count)}</ProductPrice>
           <CountWrapper>
             <Icon
               name="iconCircleMinus"
