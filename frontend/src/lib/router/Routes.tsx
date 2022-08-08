@@ -1,4 +1,4 @@
-import { createContext, FC, useEffect, useMemo, useState } from 'react'
+import { createContext, FC, useContext, useEffect, useMemo, useState } from 'react'
 
 interface Route {
   path: string
@@ -43,6 +43,15 @@ const RouteProvider: FC<Props> = ({ children }) => {
       {children}
     </RouteContext.Provider>
   )
+}
+
+export const useRouter = () => {
+  const { movePath } = useContext(RouteContext)
+
+  return (to: string) => {
+    window.history.pushState(to, '', to)
+    movePath(to)
+  }
 }
 
 export { RouteProvider as Routes }
