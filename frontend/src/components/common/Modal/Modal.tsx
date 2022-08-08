@@ -13,6 +13,7 @@ interface Props {
   hasSubmitButton?: boolean
   closeText?: string
   submitText?: string
+  backgroundLock?: boolean
 }
 
 const Modal: FC<Props> = ({
@@ -25,6 +26,7 @@ const Modal: FC<Props> = ({
   hasSubmitButton,
   closeText,
   submitText,
+  backgroundLock,
 }) => {
   const submitCallback = () => {
     onSubmit && onSubmit()
@@ -32,7 +34,7 @@ const Modal: FC<Props> = ({
   }
 
   return (
-    <ModalLayout open={open}>
+    <ModalLayout open={open} onClose={onClose} backgroundLock={backgroundLock}>
       <Wrapper>
         {title && <Title>{title}</Title>}
         <Content>{children}</Content>
@@ -42,7 +44,11 @@ const Modal: FC<Props> = ({
               {closeText || '취소'}
             </Button>
           )}
-          {hasSubmitButton && <Button width="full">{submitText || '확인'}</Button>}
+          {hasSubmitButton && (
+            <Button width="full" bgColor="red" onClick={submitCallback}>
+              {submitText || '확인'}
+            </Button>
+          )}
         </ButtonWrapper>
       </Wrapper>
     </ModalLayout>

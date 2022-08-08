@@ -5,14 +5,21 @@ import Portal from '../Portal/Portal'
 interface Props {
   open: boolean
   children?: React.ReactNode
-  onClose?: VoidFunction
+  onClose?: () => void
+  backgroundLock?: boolean
 }
 
-const ModalLayout: FC<Props> = ({ open, children, onClose }) => {
+const ModalLayout: FC<Props> = ({ open, children, onClose, backgroundLock = false }) => {
   const dimRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   // animation을 위한 state
   const [animationTrigger, setAnimationTrigger] = useState(open)
+
+  const onClickDimmer = () => {
+    if (!backgroundLock && onClose) {
+      onClose()
+    }
+  }
 
   useEffect(() => {
     if (open && !animationTrigger) setAnimationTrigger(true)
@@ -41,8 +48,8 @@ const ModalLayout: FC<Props> = ({ open, children, onClose }) => {
 
   return (
     <Portal>
-      <Wrapper open={open}>
-        <Dimmer ref={dimRef} open={open} onClick={onClose} />
+      <Wrapper>
+        <Dimmer ref={dimRef} open={open} onClick={onClickDimmer} />
         <Content ref={contentRef} open={open}>
           {children}
         </Content>
@@ -53,7 +60,7 @@ const ModalLayout: FC<Props> = ({ open, children, onClose }) => {
 
 export default ModalLayout
 
-const Wrapper = styled.div<{ open: boolean }>`
+const Wrapper = styled.div`
   position: fixed;
   top: 0;
   left: 0;
