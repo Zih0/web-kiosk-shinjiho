@@ -1,15 +1,20 @@
-import React, { useContext } from 'react'
+import styled from 'styled-components'
 import Button from 'src/components/common/Button/Button'
 import { useCartList, useCartSummary } from 'src/contexts/CartContext'
 import useTranslation from 'src/hooks/useTranslation'
+import { useRouter } from 'src/lib/router/Routes'
 import { priceToString } from 'src/utils/priceUtil'
-import styled from 'styled-components'
 import CartItem from './CartItem'
 
 const Cart = () => {
   const t = useTranslation('main')
   const cartList = useCartList()
   const { count, price } = useCartSummary()
+  const router = useRouter()
+
+  const onClickCancelButton = () => {
+    router('/')
+  }
 
   return (
     <Wrapper>
@@ -27,7 +32,9 @@ const Cart = () => {
         </CartListPrice>
       </CartListSummaryWrapper>
       <ButtonWrapper>
-        <Button bgColor="black">{t('cancel')}</Button>
+        <Button bgColor="black" onClick={onClickCancelButton}>
+          {t('cancel')}
+        </Button>
         <Button width="340px" bgColor="red">
           {t('order')}
         </Button>
