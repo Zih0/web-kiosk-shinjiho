@@ -64,10 +64,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
 
   const onClickOptionDetail = (optionId: number, detail: ProductOptionDetailType) => {
     if (selectedOption[optionId] === detail.id) {
-      setSelectedOption((prev) => ({
-        ...prev,
-        [optionId]: null,
-      }))
+      setSelectedOption(({ [optionId]: value, ...prev }) => prev)
 
       if (detail.price) {
         setExtraPrice(0)
