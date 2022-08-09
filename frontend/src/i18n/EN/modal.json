@@ -2,10 +2,12 @@
   "optionTitle": "Select Option",
   "optionCancelText": "Cancel",
   "optionSubmitText": "Order",
-  "checkCartTitle": "Check Cart",
   "selectPaymentMethodTitle": "Select Payment Method",
   "totalPrice": "Total Price",
   "creditCard": "Credit Card",
   "cash": "Cash",
-  "paymentCancelText": "Cancel"
+  "paymentCancelText": "Cancel",
+  "confirmOrderTitle": "Confirm Order",
+  "confirmOrderCancelText": "Back",
+  "confirmOrderSubmitText": "Order"
 }
