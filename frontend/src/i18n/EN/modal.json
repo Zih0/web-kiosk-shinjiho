@@ -9,5 +9,9 @@
   "paymentCancelText": "Cancel",
   "confirmOrderTitle": "Confirm Order",
   "confirmOrderCancelText": "Back",
-  "confirmOrderSubmitText": "Order"
+  "confirmOrderSubmitText": "Order",
+  "inputCashTitle": "Input Cash",
+  "inputCash": "Cash",
+  "inputCashCancelText": "Cancel",
+  "inputCashSubmitText": "Order"
 }
