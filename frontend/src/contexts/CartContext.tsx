@@ -1,9 +1,18 @@
 import { createContext, FC, useContext, useMemo, useRef, useState } from 'react'
 import { ProductType } from 'src/types/api/product'
 
+interface SelectedDetailOptionType {
+  detailId: number
+  detailKrName: string
+  detailEnName: string
+}
+
+export type SelectedOptionType = Record<string, SelectedDetailOptionType>
+
 export interface CartItemType extends Omit<ProductType, 'options' | 'is_famous' | 'is_soldout'> {
   cartId?: number
   count: number
+  selectedOptions: SelectedOptionType
 }
 
 interface CartActionType {

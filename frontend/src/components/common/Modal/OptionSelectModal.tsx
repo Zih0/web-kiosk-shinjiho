@@ -1,5 +1,5 @@
 import React, { FC, useContext, useState } from 'react'
-import { useCartAction } from 'src/contexts/CartContext'
+import { SelectedOptionType, useCartAction } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useCount from 'src/hooks/useCount'
 import useTranslation from 'src/hooks/useTranslation'
@@ -27,7 +27,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
   const t = useTranslation('modal')
   const { count, increaseCount, decreaseCount, isMaxCount, isMinCount } = useCount()
   const [extraPrice, setExtraPrice] = useState(0)
-  const [selectedOption, setSelectedOption] = useState<Record<string, number | string>>({})
+  const [selectedOption, setSelectedOption] = useState<SelectedOptionType>({})
 
   const requireOptionIdList: number[] = options.reduce((requiredIdList: number[], option) => {
     if (option.is_required) {
@@ -57,7 +57,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
   }
 
   const onClickOptionDetail = (optionId: number, detail: ProductOptionDetailType) => {
-    if (selectedOption[optionId] === detail.id) {
+    if (selectedOption[optionId]?.detailId === detail.id) {
       setSelectedOption(({ [optionId]: value, ...prev }) => prev)
 
       if (detail.price) {
@@ -69,7 +69,11 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
 
     setSelectedOption((prev) => ({
       ...prev,
-      [optionId]: detail.id,
+      [optionId]: {
+        detailId: detail.id,
+        detailKrName: detail.kr_name,
+        detailEnName: detail.en_name,
+      },
     }))
 
     if (!detail.price) return
@@ -92,6 +96,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
       kr_name: krName,
       en_name: enName,
       thumbnail: imgUrl,
+      selectedOptions: selectedOption,
     })
     closeCallback()
   }
@@ -147,7 +152,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
                       id={`radio-${detail.id}`}
                       value={detail.id}
                       required={option.is_required}
-                      checked={selectedOption[option.id] === detail.id}
+                      checked={selectedOption[option.id]?.detailId === detail.id}
                       readOnly
                       hidden
                     />
