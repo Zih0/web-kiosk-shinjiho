@@ -1,6 +1,7 @@
-import React, { FC, useContext, useEffect, useState } from 'react'
-import { useCartAction } from 'src/contexts/CartContext'
+import React, { FC, useContext, useState } from 'react'
+import { SelectedOptionType, useCartAction } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import useCount from 'src/hooks/useCount'
 import useTranslation from 'src/hooks/useTranslation'
 import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/product'
 import { priceToString } from 'src/utils/priceUtil'
@@ -20,16 +21,13 @@ interface Props {
   options: ProductOptionType[]
 }
 
-const MIN_COUNT = 1
-const MAX_COUNT = 9
-
 const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enName, price, options }) => {
   const { language } = useContext(InternationalizationContext)
   const { add } = useCartAction()
   const t = useTranslation('modal')
-  const [count, setCount] = useState(MIN_COUNT)
+  const { count, increaseCount, decreaseCount, isMaxCount, isMinCount } = useCount()
   const [extraPrice, setExtraPrice] = useState(0)
-  const [selectedOption, setSelectedOption] = useState<Record<string, number>>({})
+  const [selectedOption, setSelectedOption] = useState<SelectedOptionType>({})
 
   const requireOptionIdList: number[] = options.reduce((requiredIdList: number[], option) => {
     if (option.is_required) {
@@ -51,39 +49,14 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
   }
 
   const onClickMinus = () => {
-    if (count === MIN_COUNT) return
-
-    setCount((prev) => prev - 1)
+    decreaseCount()
   }
 
   const onClickPlus = () => {
-    if (count === MAX_COUNT) return
-
-    setCount((prev) => prev + 1)
+    increaseCount()
   }
 
-  const onClickOptionDetail = (optionId: number, detail: ProductOptionDetailType) => {
-    if (selectedOption[optionId] === detail.id) {
-      setSelectedOption(({ [optionId]: value, ...prev }) => prev)
-
-      if (detail.price) {
-        setExtraPrice(0)
-      }
-
-      return
-    }
-
-    setSelectedOption((prev) => ({
-      ...prev,
-      [optionId]: detail.id,
-    }))
-
-    if (!detail.price) return
-
-    setExtraPrice(detail.price)
-  }
-
-  const closeCallback = () => {
+  const onCloseModal = () => {
     onClose && onClose()
     setSelectedOption({})
   }
@@ -98,14 +71,40 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
       kr_name: krName,
       en_name: enName,
       thumbnail: imgUrl,
+      selectedOptions: selectedOption,
     })
-    closeCallback()
+    onCloseModal()
+  }
+
+  const onClickOptionDetail = (optionId: number, detail: ProductOptionDetailType) => {
+    if (selectedOption[optionId]?.detailId === detail.id) {
+      setSelectedOption(({ [optionId]: value, ...prev }) => prev)
+
+      if (detail.price) {
+        setExtraPrice(0)
+      }
+
+      return
+    }
+
+    setSelectedOption((prev) => ({
+      ...prev,
+      [optionId]: {
+        detailId: detail.id,
+        detailKrName: detail.kr_name,
+        detailEnName: detail.en_name,
+      },
+    }))
+
+    if (!detail.price) return
+
+    setExtraPrice(detail.price)
   }
 
   return (
     <Modal
       open={open}
-      onClose={closeCallback}
+      onClose={onCloseModal}
       onSubmit={onSubmit}
       title={t('optionTitle')}
       closeText={t('optionCancelText')}
@@ -126,14 +125,14 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
               name="iconCircleMinus"
               size={36}
               onClick={onClickMinus}
-              strokeColor={count === MIN_COUNT ? 'gray300' : 'black'}
+              strokeColor={isMinCount ? 'gray300' : 'black'}
             />
             <span>{count}</span>
             <Icon
               name="iconCirclePlus"
               size={36}
               onClick={onClickPlus}
-              strokeColor={count === MAX_COUNT ? 'gray300' : 'black'}
+              strokeColor={isMaxCount ? 'gray300' : 'black'}
             />
           </CountWrapper>
         </LeftSection>
@@ -153,7 +152,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
                       id={`radio-${detail.id}`}
                       value={detail.id}
                       required={option.is_required}
-                      checked={selectedOption[option.id] === detail.id}
+                      checked={selectedOption[option.id]?.detailId === detail.id}
                       readOnly
                       hidden
                     />

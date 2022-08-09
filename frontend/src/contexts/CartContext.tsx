@@ -1,16 +1,25 @@
 import { createContext, FC, useContext, useMemo, useRef, useState } from 'react'
 import { ProductType } from 'src/types/api/product'
 
+interface SelectedDetailOptionType {
+  detailId: number
+  detailKrName: string
+  detailEnName: string
+}
+
+export type SelectedOptionType = Record<string, SelectedDetailOptionType>
+
 export interface CartItemType extends Omit<ProductType, 'options' | 'is_famous' | 'is_soldout'> {
   cartId?: number
   count: number
+  selectedOptions: SelectedOptionType
 }
 
 interface CartActionType {
   add: (cartItem: CartItemType) => void
-  remove: (id: number) => void
-  countUp(id: number): void
-  countDown(id: number): void
+  remove: (cartId: number) => void
+  countUp(cartId: number): void
+  countDown(cartId: number): void
 }
 
 export const CartContext = createContext<CartItemType[]>([])
@@ -21,8 +30,8 @@ export const CartActionContext = createContext<CartActionType>({
   countDown: () => {},
 })
 
-const MAX_COUNT = 10
-const MIN_COUNT = 1
+export const MAX_COUNT = 9
+export const MIN_COUNT = 1
 
 interface Props {
   children: React.ReactNode
@@ -35,37 +44,49 @@ const CartProvider: FC<Props> = ({ children }) => {
 
   const actions = useMemo(
     () => ({
-      // TODO : 옵션에 따른 아이템 분기처리
       add(cartItem: CartItemType) {
-        const cartId = idRef.current++
-        setCartList((prev) => [
-          ...prev,
-          {
-            ...cartItem,
-            cartId,
-          },
-        ])
+        setCartList((prev) => {
+          // 같은 상품, 같은 옵션 체크
+          const hasSameMenu = prev.findIndex(
+            (item) =>
+              item.id === cartItem.id &&
+              JSON.stringify(item.selectedOptions) === JSON.stringify(cartItem.selectedOptions),
+          )
+
+          if (hasSameMenu !== -1) {
+            prev[hasSameMenu] = { ...prev[hasSameMenu], count: prev[hasSameMenu].count + cartItem.count }
+            return [...prev]
+          }
+
+          const cartId = idRef.current++
+          return [
+            ...prev,
+            {
+              ...cartItem,
+              cartId,
+            },
+          ]
+        })
       },
-      // TODO : 옵션에 따른 아이템 분기처리
-      remove(id: number) {
-        setCartList((prev) => prev.filter((item) => item.id !== id))
+      remove(cartId: number) {
+        setCartList((prev) => prev.filter((item) => item.cartId !== cartId))
       },
-      countUp(id: number) {
+      countUp(cartId: number) {
         setCartList((prev) =>
-          prev.map((item) =>
-            item.id === id && item.count < MAX_COUNT
+          prev.map((item) => {
+            return item.cartId === cartId && item.count !== MAX_COUNT
               ? {
                   ...item,
                   count: item.count + 1,
                 }
-              : item,
-          ),
+              : item
+          }),
         )
       },
-      countDown(id: number) {
+      countDown(cartId: number) {
         setCartList((prev) =>
           prev.map((item) =>
-            item.id === id && item.count > MIN_COUNT
+            item.cartId === cartId && item.count !== MIN_COUNT
               ? {
                   ...item,
                   count: item.count - 1,
