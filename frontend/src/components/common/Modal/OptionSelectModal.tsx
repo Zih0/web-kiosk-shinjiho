@@ -13,6 +13,8 @@ import Modal from './Modal'
 import Icon from '../Icon/Icon'
 import { Image } from '../Image/Image'
 
+type ExtraPriceType = Record<string, number>
+
 interface Props {
   open: boolean
   onClose: () => void
@@ -29,8 +31,10 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
   const { add } = useCartAction()
   const t = useTranslation('modal')
   const { count, increaseCount, decreaseCount, isMaxCount, isMinCount } = useCount()
-  const [extraPrice, setExtraPrice] = useState(0)
+  const [extraPrice, setExtraPrice] = useState<ExtraPriceType>({})
   const [selectedOption, setSelectedOption] = useState<SelectedOptionType>({})
+
+  const extraPriceSum = Object.values(extraPrice).reduce((acc, cur) => acc + cur, 0)
 
   const requireOptionIdList: number[] = options.reduce((requiredIdList: number[], option) => {
     if (option.is_required) {
@@ -70,7 +74,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
     add({
       count,
       id,
-      price: price + extraPrice,
+      price: price + extraPriceSum,
       kr_name: krName,
       en_name: enName,
       thumbnail: imgUrl,
@@ -84,7 +88,10 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
       setSelectedOption(({ [optionId]: value, ...prev }) => prev)
 
       if (detail.price) {
-        setExtraPrice(0)
+        setExtraPrice((prev) => ({
+          ...prev,
+          [optionId]: 0,
+        }))
       }
 
       return
@@ -101,7 +108,10 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
 
     if (!detail.price) return
 
-    setExtraPrice(detail.price)
+    setExtraPrice((prev) => ({
+      ...prev,
+      [optionId]: detail.price,
+    }))
   }
 
   return (
@@ -122,7 +132,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
             {language === 'KR' && krName}
             {language === 'EN' && enName}
           </ProductName>
-          <ProductPrice>{priceToString((price + extraPrice) * count)}</ProductPrice>
+          <ProductPrice>{priceToString((price + extraPriceSum) * count)}</ProductPrice>
           <CountWrapper>
             <Icon
               name="iconCircleMinus"
