@@ -49,7 +49,8 @@ const CartProvider: FC<Props> = ({ children }) => {
           // 같은 상품, 같은 옵션 체크
           const hasSameMenu = prev.findIndex(
             (item) =>
-              item.id === cartItem.id && JSON.stringify(item.selectedOptions) === JSON.stringify(item.selectedOptions),
+              item.id === cartItem.id &&
+              JSON.stringify(item.selectedOptions) === JSON.stringify(cartItem.selectedOptions),
           )
 
           if (hasSameMenu !== -1) {
