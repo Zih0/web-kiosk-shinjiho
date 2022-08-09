@@ -1,5 +1,11 @@
 {
   "optionTitle": "옵션 선택",
   "optionCancelText": "이전",
-  "optionSubmitText": "담기"
+  "optionSubmitText": "담기",
+  "checkCartTitle": "주문 내역을 확인해주세요",
+  "selectPaymentMethodTitle": "결제 방법을 선택해주세요",
+  "totalPrice": "결제 금액",
+  "creditCard": "신용카드",
+  "cash": "현금",
+  "paymentCancelText": "취소"
 }

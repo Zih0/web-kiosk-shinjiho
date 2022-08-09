@@ -1,5 +1,11 @@
 {
   "optionTitle": "Select Option",
   "optionCancelText": "Cancel",
-  "optionSubmitText": "Order"
+  "optionSubmitText": "Order",
+  "checkCartTitle": "Check Cart",
+  "selectPaymentMethodTitle": "Select Payment Method",
+  "totalPrice": "Total Price",
+  "creditCard": "Credit Card",
+  "cash": "Cash",
+  "paymentCancelText": "Cancel"
 }
