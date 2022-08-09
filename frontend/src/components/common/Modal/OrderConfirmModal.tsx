@@ -5,6 +5,7 @@ import { CartItemType, MAX_COUNT, MIN_COUNT, useCartAction, useCartList } from '
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
+import { priceToString } from 'src/utils/priceUtil'
 
 import Modal from './Modal'
 import PaymentMethodModal from './PaymentMethodModal'
@@ -80,7 +81,7 @@ const OrderConfirmModal: FC<Props> = ({ open, onClose }) => {
                     strokeColor={cartItem.count === MAX_COUNT ? 'gray300' : 'black'}
                   />
                 </OrderItemCountWrapper>
-                <Price>{cartItem.price * cartItem.count}</Price>
+                <Price>{priceToString(cartItem.price * cartItem.count)}</Price>
                 <Icon name="iconCircleXLine" size={32} onClick={() => onClickXButton(cartItem)} />
               </OrderItemWrapper>
               <OrderItemOptionWrapper>
