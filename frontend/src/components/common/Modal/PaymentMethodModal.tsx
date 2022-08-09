@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { useCartSummary } from 'src/contexts/CartContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
+import { priceToString } from 'src/utils/priceUtil'
 
 import CardInputModal from './CardInputModal'
 import CashInputModal from './CashInputModal'
@@ -43,7 +44,7 @@ const PaymentMethodModal: FC<Props> = ({ open, onClose }) => {
       >
         <Wrapper>
           <TotalPrice>
-            {t('totalPrice')} : <span className="price">{price}</span>
+            {t('totalPrice')} : <span className="price">{priceToString(price)}</span>
           </TotalPrice>
           <PaymentMethodWrapper>
             <PaymentItem onClick={onClickCard}>
