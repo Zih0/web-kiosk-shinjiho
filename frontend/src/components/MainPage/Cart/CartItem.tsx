@@ -1,8 +1,8 @@
-import React, { FC, useContext } from 'react'
+import { FC, useContext } from 'react'
 import styled from 'styled-components'
 
 import { Image } from 'src/components/common/Image/Image'
-import { CartItemType } from 'src/contexts/CartContext'
+import { CartItemType, useCartAction } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import Icon from 'src/components/common/Icon/Icon'
 
@@ -12,9 +12,14 @@ interface Props {
 
 const CartItem: FC<Props> = ({ cartItem }) => {
   const { language } = useContext(InternationalizationContext)
+  const { remove } = useCartAction()
+
+  const onClickXButton = (cartId: number) => {
+    remove(cartId)
+  }
   return (
     <Wrapper>
-      <RemoveIcon name="iconCircleX" size={40} />
+      <RemoveIcon name="iconCircleX" size={40} onClick={() => onClickXButton(cartItem.id)} />
       <Image src={cartItem.thumbnail} width={120} height={120} />
       <ProductName>
         {language === 'KR' && cartItem.kr_name}

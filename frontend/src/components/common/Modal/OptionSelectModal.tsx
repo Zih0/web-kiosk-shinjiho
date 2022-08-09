@@ -29,7 +29,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
   const t = useTranslation('modal')
   const [count, setCount] = useState(MIN_COUNT)
   const [extraPrice, setExtraPrice] = useState(0)
-  const [selectedOption, setSelectedOption] = useState<Record<string, number>>({})
+  const [selectedOption, setSelectedOption] = useState<Record<string, number | string>>({})
 
   const requireOptionIdList: number[] = options.reduce((requiredIdList: number[], option) => {
     if (option.is_required) {
