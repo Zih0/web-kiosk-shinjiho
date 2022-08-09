@@ -1,6 +1,8 @@
+import styled from 'styled-components'
+
 import useTranslation from 'src/hooks/useTranslation'
 import Link from 'src/lib/router/Link'
-import styled from 'styled-components'
+
 import Icon from '../Icon/Icon'
 import LanguageButton from '../LanguageButton/LanguageButton'
 

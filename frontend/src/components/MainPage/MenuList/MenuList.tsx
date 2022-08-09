@@ -1,10 +1,11 @@
 import { FC, useContext, useEffect, useState } from 'react'
+import styled from 'styled-components'
+
 import { getProductsAPI } from 'src/api/product/product'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import { useAxios } from 'src/hooks/useAxios'
-
 import { ProductType } from 'src/types/api/product'
-import styled from 'styled-components'
+
 import Menu from '../Menu/Menu'
 
 interface Props {

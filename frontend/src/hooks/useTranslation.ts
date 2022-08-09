@@ -1,4 +1,5 @@
 import { useContext, useLayoutEffect, useState } from 'react'
+
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 
 type TextObjType = Record<string, string>

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+
 import { useServerState } from 'src/contexts/ServerStateCacheContext'
 
 export const useAxios = <T, E>(key: string | Array<number | string>, asyncFn: () => Promise<T>) => {

@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import Button from '../Button/Button'
+
 import ModalLayout from './ModalLayout'
+
+import Button from '../Button/Button'
 
 interface Props {
   open: boolean
