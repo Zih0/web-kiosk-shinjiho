@@ -1,15 +1,21 @@
 import { Module } from '@nestjs/common'
+import { ServeStaticModule } from '@nestjs/serve-static'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CategoriesModule } from './categories/categories.module'
 import { ProductsModule } from './products/products.module'
 import { OrdersModule } from './orders/orders.module'
 import { OrderToProductModule } from './order-to-product/order-to-product.module'
+import { join } from 'path'
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), '..', 'frontend', 'build'),
+      exclude: ['/api*'],
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
