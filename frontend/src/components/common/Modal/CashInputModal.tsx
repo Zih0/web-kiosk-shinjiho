@@ -21,7 +21,7 @@ const CashInputModal: FC<Props> = ({ open, onClose }) => {
     // TODO : Alert
     if (price * 2 < cash) return
 
-    setCash(inputCash)
+    setCash((prev) => prev + inputCash)
   }
 
   return (
