@@ -72,6 +72,6 @@ const StyledButton = styled.button<Pick<Props, 'bgColor' | 'width'>>`
   &:disabled {
     cursor: not-allowed;
     color: ${({ theme }) => theme.color.white};
-    background-color: ${({ theme }) => theme.color.gray500};
+    background-color: ${({ bgColor, theme }) => (bgColor === 'red' ? theme.color.red100 : theme.color.gray500)};
   }
 `
