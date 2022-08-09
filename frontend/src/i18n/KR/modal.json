@@ -9,5 +9,9 @@
   "paymentCancelText": "취소",
   "confirmOrderTitle": "주문 내역을 확인해주세요",
   "confirmOrderCancelText": "이전",
-  "confirmOrderSubmitText": "결제하기"
+  "confirmOrderSubmitText": "결제하기",
+  "inputCashTitle": "현금을 투입해주세요",
+  "inputCash": "투입 금액",
+  "inputCashCancelText": "취소",
+  "inputCashSubmitText": "결제하기"
 }

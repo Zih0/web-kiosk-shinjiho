@@ -19,6 +19,7 @@ export interface CartItemType extends Omit<ProductType, 'options' | 'is_famous' 
 interface CartActionType {
   add: (cartItem: CartItemType) => void
   remove: (cartId: number) => void
+  clear: () => void
   countUp(cartId: number): void
   countDown(cartId: number): void
 }
@@ -27,6 +28,7 @@ export const CartContext = createContext<CartItemType[]>([])
 export const CartActionContext = createContext<CartActionType>({
   add: () => {},
   remove: () => {},
+  clear: () => {},
   countUp: () => {},
   countDown: () => {},
 })
@@ -71,6 +73,9 @@ const CartProvider: FC<Props> = ({ children }) => {
       },
       remove(cartId: number) {
         setCartList((prev) => prev.filter((item) => item.cartId !== cartId))
+      },
+      clear() {
+        setCartList([])
       },
       countUp(cartId: number) {
         setCartList((prev) =>

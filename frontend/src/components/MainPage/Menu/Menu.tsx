@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Image } from 'src/components/common/Image/Image'
 import OptionSelectModal from 'src/components/common/Modal/OptionSelectModal'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import useModal from 'src/hooks/useModal'
 import { ProductOptionType } from 'src/types/api/product'
 
 interface Props {
@@ -17,19 +18,11 @@ interface Props {
 
 const Menu: FC<Props> = ({ id, imgUrl, krName, enName, price, options }) => {
   const { language } = useContext(InternationalizationContext)
-  const [open, setOpen] = useState(false)
-
-  const onClose = () => {
-    setOpen(false)
-  }
-
-  const onClickMenu = () => {
-    setOpen(true)
-  }
+  const { open, onOpen, onClose } = useModal()
 
   return (
     <>
-      <Wrapper onClick={onClickMenu}>
+      <Wrapper onClick={onOpen}>
         <Image width={216} height={216} src={imgUrl} />
         <MenuName>
           {language === 'KR' && krName}

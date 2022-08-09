@@ -2,9 +2,12 @@ import { FC, useState } from 'react'
 import styled from 'styled-components'
 
 import { useCartSummary } from 'src/contexts/CartContext'
+import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
+import { priceToString } from 'src/utils/priceUtil'
 
 import CardInputModal from './CardInputModal'
+import CashInputModal from './CashInputModal'
 import Modal from './Modal'
 
 import Icon from '../Icon/Icon'
@@ -17,18 +20,18 @@ interface Props {
 const PaymentMethodModal: FC<Props> = ({ open, onClose }) => {
   const t = useTranslation('modal')
   const { price } = useCartSummary()
-  const [openCard, setOpenCard] = useState(false)
-
-  const onCloseCardModal = () => {
-    setOpenCard(false)
-  }
+  const { open: openCardModal, onOpen: onOpenCardModal, onClose: onCloseCardModal } = useModal()
+  const { open: openCashModal, onOpen: onOpenCashModal, onClose: onCloseCashModal } = useModal()
 
   const onClickCard = () => {
-    setOpenCard(true)
+    onOpenCardModal()
     onClose()
   }
 
-  const onClickCash = () => {}
+  const onClickCash = () => {
+    onOpenCashModal()
+    onClose()
+  }
 
   return (
     <>
@@ -41,7 +44,7 @@ const PaymentMethodModal: FC<Props> = ({ open, onClose }) => {
       >
         <Wrapper>
           <TotalPrice>
-            {t('totalPrice')} : <span className="price">{price}</span>
+            {t('totalPrice')} : <span className="price">{priceToString(price)}</span>
           </TotalPrice>
           <PaymentMethodWrapper>
             <PaymentItem onClick={onClickCard}>
@@ -55,7 +58,8 @@ const PaymentMethodModal: FC<Props> = ({ open, onClose }) => {
           </PaymentMethodWrapper>
         </Wrapper>
       </Modal>
-      <CardInputModal open={openCard} onClose={onCloseCardModal} />
+      <CardInputModal open={openCardModal} onClose={onCloseCardModal} />
+      <CashInputModal open={openCashModal} onClose={onCloseCashModal} />
     </>
   )
 }
