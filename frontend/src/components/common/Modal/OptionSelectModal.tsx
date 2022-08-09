@@ -56,6 +56,26 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
     increaseCount()
   }
 
+  const onCloseModal = () => {
+    onClose && onClose()
+    setSelectedOption({})
+  }
+
+  const onSubmit = () => {
+    if (!checkRequiredOptions()) return
+
+    add({
+      count,
+      id,
+      price,
+      kr_name: krName,
+      en_name: enName,
+      thumbnail: imgUrl,
+      selectedOptions: selectedOption,
+    })
+    onCloseModal()
+  }
+
   const onClickOptionDetail = (optionId: number, detail: ProductOptionDetailType) => {
     if (selectedOption[optionId]?.detailId === detail.id) {
       setSelectedOption(({ [optionId]: value, ...prev }) => prev)
@@ -81,30 +101,10 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
     setExtraPrice(detail.price)
   }
 
-  const closeCallback = () => {
-    onClose && onClose()
-    setSelectedOption({})
-  }
-
-  const onSubmit = () => {
-    if (!checkRequiredOptions()) return
-
-    add({
-      count,
-      id,
-      price,
-      kr_name: krName,
-      en_name: enName,
-      thumbnail: imgUrl,
-      selectedOptions: selectedOption,
-    })
-    closeCallback()
-  }
-
   return (
     <Modal
       open={open}
-      onClose={closeCallback}
+      onClose={onCloseModal}
       onSubmit={onSubmit}
       title={t('optionTitle')}
       closeText={t('optionCancelText')}
