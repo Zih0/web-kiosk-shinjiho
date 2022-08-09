@@ -7,6 +7,8 @@ import { priceToString } from 'src/utils/priceUtil'
 
 import Modal from './Modal'
 
+const CASH_LIST: number[] = [500, 1000, 5000, 10000]
+
 interface Props {
   open: boolean
   onClose: () => void
@@ -51,10 +53,11 @@ const CashInputModal: FC<Props> = ({ open, onClose }) => {
           </PriceRow>
         </PriceWrapper>
         <ButtonWrapper>
-          <CashButton onClick={() => onClickCashButton(500)}>500</CashButton>
-          <CashButton onClick={() => onClickCashButton(1000)}>{priceToString(1000)}</CashButton>
-          <CashButton onClick={() => onClickCashButton(5000)}>{priceToString(5000)}</CashButton>
-          <CashButton onClick={() => onClickCashButton(10000)}>{priceToString(10000)}</CashButton>
+          {CASH_LIST.map((cash) => (
+            <CashButton key={cash} onClick={() => onClickCashButton(cash)}>
+              {priceToString(cash)}
+            </CashButton>
+          ))}
         </ButtonWrapper>
       </Wrapper>
     </Modal>
