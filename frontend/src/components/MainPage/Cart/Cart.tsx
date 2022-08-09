@@ -1,7 +1,9 @@
 import styled from 'styled-components'
 
 import Button from 'src/components/common/Button/Button'
+import OrderConfirmModal from 'src/components/common/Modal/OrderConfirmModal'
 import { useCartList, useCartSummary } from 'src/contexts/CartContext'
+import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { useRouter } from 'src/lib/router/Routes'
 import { priceToString } from 'src/utils/priceUtil'
@@ -9,39 +11,43 @@ import { priceToString } from 'src/utils/priceUtil'
 import CartItem from './CartItem'
 
 const Cart = () => {
+  const router = useRouter()
   const t = useTranslation('main')
   const cartList = useCartList()
   const { count, price } = useCartSummary()
-  const router = useRouter()
+  const { open, onClose, onOpen: onOpenModal } = useModal()
 
   const onClickCancelButton = () => {
     router('/')
   }
 
   return (
-    <Wrapper>
-      <CartListWrapper>
-        {cartList.map((cartItem) => (
-          <CartItem key={cartItem.cartId} cartItem={cartItem} />
-        ))}
-      </CartListWrapper>
-      <CartListSummaryWrapper>
-        <CartListCount>
-          {t('totalCount')} : {count}
-        </CartListCount>
-        <CartListPrice>
-          {t('price')} : <span className="price">{priceToString(price)}</span>
-        </CartListPrice>
-      </CartListSummaryWrapper>
-      <ButtonWrapper>
-        <Button bgColor="black" onClick={onClickCancelButton}>
-          {t('cancel')}
-        </Button>
-        <Button width="340px" bgColor="red">
-          {t('order')}
-        </Button>
-      </ButtonWrapper>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <CartListWrapper>
+          {cartList.map((cartItem) => (
+            <CartItem key={cartItem.cartId} cartItem={cartItem} />
+          ))}
+        </CartListWrapper>
+        <CartListSummaryWrapper>
+          <CartListCount>
+            {t('totalCount')} : {count}
+          </CartListCount>
+          <CartListPrice>
+            {t('price')} : <span className="price">{priceToString(price)}</span>
+          </CartListPrice>
+        </CartListSummaryWrapper>
+        <ButtonWrapper>
+          <Button bgColor="black" onClick={onClickCancelButton}>
+            {t('cancel')}
+          </Button>
+          <Button width="340px" bgColor="red" onClick={onOpenModal}>
+            {t('order')}
+          </Button>
+        </ButtonWrapper>
+      </Wrapper>
+      <OrderConfirmModal open={open} onClose={onClose} />
+    </>
   )
 }
 
