@@ -59,29 +59,40 @@ const OrderConfirmModal: FC<Props> = ({ open, onClose }) => {
       >
         <Wrapper>
           {cartList.map((cartItem) => (
-            <OrderItemWrapper key={cartItem.cartId}>
-              <OrderItemName>
-                {language === 'KR' && cartItem.kr_name}
-                {language === 'EN' && cartItem.en_name}
-              </OrderItemName>
-              <OrderItemCountWrapper>
-                <Icon
-                  name="iconCircleMinus"
-                  size={32}
-                  onClick={() => onClickMinus(cartItem)}
-                  strokeColor={cartItem.count === MIN_COUNT ? 'gray300' : 'black'}
-                />
-                <p>{cartItem.count}</p>
-                <Icon
-                  name="iconCirclePlus"
-                  size={32}
-                  onClick={() => onClickPlus(cartItem)}
-                  strokeColor={cartItem.count === MAX_COUNT ? 'gray300' : 'black'}
-                />
-              </OrderItemCountWrapper>
-              <Price>{cartItem.price * cartItem.count}</Price>
-              <Icon name="iconCircleXLine" size={32} onClick={() => onClickXButton(cartItem)} />
-            </OrderItemWrapper>
+            <React.Fragment key={cartItem.cartId}>
+              <OrderItemWrapper>
+                <OrderItemName>
+                  {language === 'KR' && cartItem.kr_name}
+                  {language === 'EN' && cartItem.en_name}
+                </OrderItemName>
+                <OrderItemCountWrapper>
+                  <Icon
+                    name="iconCircleMinus"
+                    size={32}
+                    onClick={() => onClickMinus(cartItem)}
+                    strokeColor={cartItem.count === MIN_COUNT ? 'gray300' : 'black'}
+                  />
+                  <p>{cartItem.count}</p>
+                  <Icon
+                    name="iconCirclePlus"
+                    size={32}
+                    onClick={() => onClickPlus(cartItem)}
+                    strokeColor={cartItem.count === MAX_COUNT ? 'gray300' : 'black'}
+                  />
+                </OrderItemCountWrapper>
+                <Price>{cartItem.price * cartItem.count}</Price>
+                <Icon name="iconCircleXLine" size={32} onClick={() => onClickXButton(cartItem)} />
+              </OrderItemWrapper>
+              <OrderItemOptionWrapper>
+                {Object.values(cartItem.selectedOptions).map((option, idx) => (
+                  <p key={option.detailId}>
+                    {language === 'KR' && option.detailKrName}
+                    {language === 'EN' && option.detailEnName}
+                    <em className="delimiter">{idx !== Object.values(cartItem.selectedOptions).length - 1 && '/'}</em>
+                  </p>
+                ))}
+              </OrderItemOptionWrapper>
+            </React.Fragment>
           ))}
         </Wrapper>
       </Modal>
@@ -94,9 +105,6 @@ export default OrderConfirmModal
 
 const Wrapper = styled.div`
   margin-top: 120px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
 `
 
 const OrderItemWrapper = styled.div`
@@ -106,6 +114,23 @@ const OrderItemWrapper = styled.div`
   font-weight: 600;
   font-size: 32px;
   line-height: 38px;
+`
+
+const OrderItemOptionWrapper = styled.div`
+  margin-top: 8px;
+  margin-bottom: 16px;
+
+  display: flex;
+
+  font-size: 24px;
+  line-height: 28px;
+
+  color: ${({ theme }) => theme.color.gray500};
+
+  .delimiter {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
 `
 
 const OrderItemName = styled.p`
