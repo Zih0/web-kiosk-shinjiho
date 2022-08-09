@@ -2,7 +2,7 @@ import { FC, useContext } from 'react'
 import styled from 'styled-components'
 
 import { Image } from 'src/components/common/Image/Image'
-import { CartItemType, useCartAction } from 'src/contexts/CartContext'
+import { CartItemType, MAX_COUNT, MIN_COUNT, useCartAction } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import Icon from 'src/components/common/Icon/Icon'
 
@@ -12,23 +12,40 @@ interface Props {
 
 const CartItem: FC<Props> = ({ cartItem }) => {
   const { language } = useContext(InternationalizationContext)
-  const { remove } = useCartAction()
+  const { remove, countUp, countDown } = useCartAction()
 
-  const onClickXButton = (cartId: number) => {
-    remove(cartId)
+  const onClickXButton = () => {
+    remove(cartItem.cartId!)
   }
+
+  const onClickPlus = () => {
+    countUp(cartItem.cartId!)
+  }
+
+  const onClickMinus = () => {
+    countDown(cartItem.cartId!)
+  }
+
   return (
     <Wrapper>
-      <RemoveIcon name="iconCircleX" size={40} onClick={() => onClickXButton(cartItem.id)} />
+      <RemoveIcon name="iconCircleX" size={40} onClick={onClickXButton} />
       <Image src={cartItem.thumbnail} width={120} height={120} />
       <ProductName>
         {language === 'KR' && cartItem.kr_name}
         {language === 'EN' && cartItem.en_name}
       </ProductName>
       <CountWrapper>
-        <Icon name="iconCircleMinus" />
+        <Icon
+          name="iconCircleMinus"
+          onClick={onClickMinus}
+          strokeColor={cartItem.count === MIN_COUNT ? 'gray300' : 'black'}
+        />
         <Count>{cartItem.count}</Count>
-        <Icon name="iconCirclePlus" />
+        <Icon
+          name="iconCirclePlus"
+          onClick={onClickPlus}
+          strokeColor={cartItem.count === MAX_COUNT ? 'gray300' : 'black'}
+        />
       </CountWrapper>
     </Wrapper>
   )

@@ -17,9 +17,9 @@ export interface CartItemType extends Omit<ProductType, 'options' | 'is_famous' 
 
 interface CartActionType {
   add: (cartItem: CartItemType) => void
-  remove: (id: number) => void
-  countUp(id: number): void
-  countDown(id: number): void
+  remove: (cartId: number) => void
+  countUp(cartId: number): void
+  countDown(cartId: number): void
 }
 
 export const CartContext = createContext<CartItemType[]>([])
@@ -30,8 +30,8 @@ export const CartActionContext = createContext<CartActionType>({
   countDown: () => {},
 })
 
-const MAX_COUNT = 9
-const MIN_COUNT = 1
+export const MAX_COUNT = 9
+export const MIN_COUNT = 1
 
 interface Props {
   children: React.ReactNode
@@ -70,22 +70,22 @@ const CartProvider: FC<Props> = ({ children }) => {
       remove(cartId: number) {
         setCartList((prev) => prev.filter((item) => item.cartId !== cartId))
       },
-      countUp(id: number) {
+      countUp(cartId: number) {
         setCartList((prev) =>
-          prev.map((item) =>
-            item.id === id && item.count === MAX_COUNT
+          prev.map((item) => {
+            return item.cartId === cartId && item.count !== MAX_COUNT
               ? {
                   ...item,
                   count: item.count + 1,
                 }
-              : item,
-          ),
+              : item
+          }),
         )
       },
-      countDown(id: number) {
+      countDown(cartId: number) {
         setCartList((prev) =>
           prev.map((item) =>
-            item.id === id && item.count === MIN_COUNT
+            item.cartId === cartId && item.count !== MIN_COUNT
               ? {
                   ...item,
                   count: item.count - 1,
