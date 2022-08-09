@@ -55,6 +55,7 @@ const Wrapper = styled.div`
 `
 
 const TotalPrice = styled.h3`
+  margin-top: 36px;
   font-weight: 600;
   font-size: 36px;
   line-height: 43px;
