@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import Button from 'src/components/common/Button/Button'
 import OrderConfirmModal from 'src/components/common/Modal/OrderConfirmModal'
-import { useCartList, useCartSummary } from 'src/contexts/CartContext'
+import { useCartAction, useCartList, useCartSummary } from 'src/contexts/CartContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { useRouter } from 'src/lib/router/Routes'
@@ -14,10 +14,12 @@ const Cart = () => {
   const router = useRouter()
   const t = useTranslation('main')
   const cartList = useCartList()
+  const { clear } = useCartAction()
   const { count, price } = useCartSummary()
   const { open, onClose, onOpen: onOpenModal } = useModal()
 
   const onClickCancelButton = () => {
+    clear()
     router('/')
   }
 
