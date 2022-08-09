@@ -1,4 +1,4 @@
-import { createContext, FC, useContext, useEffect, useMemo, useState } from 'react'
+import { FC, createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 interface Route {
   path: string

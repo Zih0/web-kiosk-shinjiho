@@ -1,12 +1,13 @@
 import { useLayoutEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 
+import InternationalizationProvider from 'src/contexts/InternationalizationContext'
 import GlobalStyle from 'src/styles/GlobalStyles'
 import { theme } from 'src/styles/theme'
+
 import Router from './Router'
-import ServerStateProvider from './contexts/ServerStateCacheContext'
-import InternationalizationProvider from 'src/contexts/InternationalizationContext'
 import { initAxiosConfig } from './api'
+import ServerStateProvider from './contexts/ServerStateCacheContext'
 
 function App() {
   useLayoutEffect(() => {

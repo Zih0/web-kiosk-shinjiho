@@ -1,4 +1,5 @@
-import { createContext, FC, useContext, useMemo, useRef, useState } from 'react'
+import { FC, createContext, useContext, useMemo, useRef, useState } from 'react'
+
 import { ProductType } from 'src/types/api/product'
 
 interface SelectedDetailOptionType {

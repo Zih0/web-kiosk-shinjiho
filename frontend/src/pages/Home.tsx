@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import useTranslation from 'src/hooks/useTranslation'
-import Link from 'src/lib/router/Link'
+
 import LanguageButton from 'src/components/common/LanguageButton/LanguageButton'
 import Slider from 'src/components/common/Slider/Slider'
+import useTranslation from 'src/hooks/useTranslation'
+import Link from 'src/lib/router/Link'
 
 const Home = () => {
   const t = useTranslation('home')

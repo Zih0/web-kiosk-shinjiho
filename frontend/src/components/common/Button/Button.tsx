@@ -1,6 +1,7 @@
 import { FC } from 'react'
-import { ColorTheme, ColorToken } from 'src/styles/type'
 import styled from 'styled-components'
+
+import { ColorTheme, ColorToken } from 'src/styles/type'
 
 interface Props {
   width?: 'medium' | 'large' | 'full' | string

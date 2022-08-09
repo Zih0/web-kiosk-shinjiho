@@ -1,8 +1,10 @@
 import { FC, useContext } from 'react'
+import styled from 'styled-components'
+
 import { getCategoriesAPI } from 'src/api/category/category'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import { useAxios } from 'src/hooks/useAxios'
-import styled from 'styled-components'
+
 import Button from '../../common/Button/Button'
 
 interface Props {

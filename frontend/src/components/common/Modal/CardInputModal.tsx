@@ -1,7 +1,9 @@
 import { FC } from 'react'
 import styled from 'styled-components'
-import { Image } from '../Image/Image'
+
 import Modal from './Modal'
+
+import { Image } from '../Image/Image'
 
 interface Props {
   open: boolean

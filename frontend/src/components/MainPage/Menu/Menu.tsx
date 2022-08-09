@@ -1,9 +1,10 @@
 import { FC, useContext, useEffect, useState } from 'react'
+import styled from 'styled-components'
+
 import { Image } from 'src/components/common/Image/Image'
 import OptionSelectModal from 'src/components/common/Modal/OptionSelectModal'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import { ProductOptionType } from 'src/types/api/product'
-import styled from 'styled-components'
 
 interface Props {
   id: number

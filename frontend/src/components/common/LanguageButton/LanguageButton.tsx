@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
-
 import styled from 'styled-components'
+
+import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 
 interface Props {}
 

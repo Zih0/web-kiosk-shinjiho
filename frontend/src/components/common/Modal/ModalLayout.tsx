@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
+
 import Portal from '../Portal/Portal'
 
 interface Props {

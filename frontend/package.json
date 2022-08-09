@@ -15,6 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.47",
@@ -35,7 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.tsx"
+    "lint": "eslint src/**/*.tsx",
+    "prettier": "npx prettier --write src"
   },
   "eslintConfig": {
     "extends": [

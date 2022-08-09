@@ -1,14 +1,17 @@
 import React, { FC, useContext, useState } from 'react'
+import styled from 'styled-components'
+
 import { SelectedOptionType, useCartAction } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useCount from 'src/hooks/useCount'
 import useTranslation from 'src/hooks/useTranslation'
 import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/product'
 import { priceToString } from 'src/utils/priceUtil'
-import styled from 'styled-components'
+
+import Modal from './Modal'
+
 import Icon from '../Icon/Icon'
 import { Image } from '../Image/Image'
-import Modal from './Modal'
 
 interface Props {
   open: boolean
