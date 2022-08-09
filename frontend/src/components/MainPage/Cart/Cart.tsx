@@ -22,7 +22,7 @@ const Cart = () => {
     <Wrapper>
       <CartListWrapper>
         {cartList.map((cartItem) => (
-          <CartItem key={cartItem.id} cartItem={cartItem} />
+          <CartItem key={cartItem.cartId} cartItem={cartItem} />
         ))}
       </CartListWrapper>
       <CartListSummaryWrapper>
