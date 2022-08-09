@@ -1,9 +1,10 @@
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import styled from 'styled-components'
 
 import { useCartSummary } from 'src/contexts/CartContext'
 import useTranslation from 'src/hooks/useTranslation'
 
+import CardInputModal from './CardInputModal'
 import Modal from './Modal'
 
 import Icon from '../Icon/Icon'
@@ -16,35 +17,46 @@ interface Props {
 const PaymentMethodModal: FC<Props> = ({ open, onClose }) => {
   const t = useTranslation('modal')
   const { price } = useCartSummary()
+  const [openCard, setOpenCard] = useState(false)
 
-  const onClickCard = () => {}
+  const onCloseCardModal = () => {
+    setOpenCard(false)
+  }
+
+  const onClickCard = () => {
+    setOpenCard(true)
+    onClose()
+  }
 
   const onClickCash = () => {}
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      title={t('selectPaymentMethodTitle')}
-      closeText={t('paymentCancelText')}
-      hasCloseButton
-    >
-      <Wrapper>
-        <TotalPrice>
-          결제금액 : <span className="price">{price}</span>
-        </TotalPrice>
-        <PaymentMethodWrapper>
-          <PaymentItem onClick={onClickCard}>
-            <Icon name="iconCreditCard" />
-            <PaymentName>{t('creditCard')}</PaymentName>
-          </PaymentItem>
-          <PaymentItem onClick={onClickCash}>
-            <Icon name="iconCash" />
-            <PaymentName>{t('cash')}</PaymentName>
-          </PaymentItem>
-        </PaymentMethodWrapper>
-      </Wrapper>
-    </Modal>
+    <>
+      <Modal
+        open={open}
+        onClose={onClose}
+        title={t('selectPaymentMethodTitle')}
+        closeText={t('paymentCancelText')}
+        hasCloseButton
+      >
+        <Wrapper>
+          <TotalPrice>
+            결제금액 : <span className="price">{price}</span>
+          </TotalPrice>
+          <PaymentMethodWrapper>
+            <PaymentItem onClick={onClickCard}>
+              <Icon name="iconCreditCard" />
+              <PaymentName>{t('creditCard')}</PaymentName>
+            </PaymentItem>
+            <PaymentItem onClick={onClickCash}>
+              <Icon name="iconCash" />
+              <PaymentName>{t('cash')}</PaymentName>
+            </PaymentItem>
+          </PaymentMethodWrapper>
+        </Wrapper>
+      </Modal>
+      <CardInputModal open={openCard} onClose={onCloseCardModal} />
+    </>
   )
 }
 
