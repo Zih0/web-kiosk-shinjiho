@@ -41,7 +41,7 @@ const PaymentMethodModal: FC<Props> = ({ open, onClose }) => {
       >
         <Wrapper>
           <TotalPrice>
-            결제금액 : <span className="price">{price}</span>
+            {t('totalPrice')} : <span className="price">{price}</span>
           </TotalPrice>
           <PaymentMethodWrapper>
             <PaymentItem onClick={onClickCard}>
