@@ -1,5 +1,6 @@
 {
   "optionTitle": "Select Option",
   "optionCancelText": "Cancel",
-  "optionSubmitText": "Order"
+  "optionSubmitText": "Order",
+  "checkCartTitle": "Check Cart"
 }
