@@ -24,10 +24,15 @@ const CashInputModal: FC<Props> = ({ open, onClose }) => {
     setCash((prev) => prev + inputCash)
   }
 
+  const onSubmit = () => {
+    // TODO : 주문 API + 영수증 모달
+  }
+
   return (
     <Modal
       open={open}
       onClose={onClose}
+      onSubmit={onSubmit}
       title={t('inputCashTitle')}
       closeText={t('inputCashCancelText')}
       submitText={t('inputCashSubmitText')}
