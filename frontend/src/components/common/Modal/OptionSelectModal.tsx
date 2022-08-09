@@ -70,7 +70,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
     add({
       count,
       id,
-      price,
+      price: price + extraPrice,
       kr_name: krName,
       en_name: enName,
       thumbnail: imgUrl,
