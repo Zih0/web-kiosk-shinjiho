@@ -21,6 +21,13 @@ const Cart = () => {
     router('/')
   }
 
+  const onOpenOrderConfirmModal = () => {
+    // TODO : Alert 구현 후, Alert 추가 예정
+    if (!count) return
+
+    onOpenModal()
+  }
+
   return (
     <>
       <Wrapper>
@@ -41,7 +48,7 @@ const Cart = () => {
           <Button bgColor="black" onClick={onClickCancelButton}>
             {t('cancel')}
           </Button>
-          <Button width="340px" bgColor="red" onClick={onOpenModal}>
+          <Button width="340px" bgColor="red" onClick={onOpenOrderConfirmModal}>
             {t('order')}
           </Button>
         </ButtonWrapper>
