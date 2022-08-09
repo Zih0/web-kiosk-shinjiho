@@ -30,7 +30,7 @@ export const CartActionContext = createContext<CartActionType>({
   countDown: () => {},
 })
 
-const MAX_COUNT = 10
+const MAX_COUNT = 9
 const MIN_COUNT = 1
 
 interface Props {
@@ -44,25 +44,36 @@ const CartProvider: FC<Props> = ({ children }) => {
 
   const actions = useMemo(
     () => ({
-      // TODO : 옵션에 따른 아이템 분기처리
       add(cartItem: CartItemType) {
-        const cartId = idRef.current++
-        setCartList((prev) => [
-          ...prev,
-          {
-            ...cartItem,
-            cartId,
-          },
-        ])
+        setCartList((prev) => {
+          // 같은 상품, 같은 옵션 체크
+          const hasSameMenu = prev.findIndex(
+            (item) =>
+              item.id === cartItem.id && JSON.stringify(item.selectedOptions) === JSON.stringify(item.selectedOptions),
+          )
+
+          if (hasSameMenu !== -1) {
+            prev[hasSameMenu] = { ...prev[hasSameMenu], count: prev[hasSameMenu].count + cartItem.count }
+            return [...prev]
+          }
+
+          const cartId = idRef.current++
+          return [
+            ...prev,
+            {
+              ...cartItem,
+              cartId,
+            },
+          ]
+        })
       },
-      // TODO : 옵션에 따른 아이템 분기처리
-      remove(id: number) {
-        setCartList((prev) => prev.filter((item) => item.id !== id))
+      remove(cartId: number) {
+        setCartList((prev) => prev.filter((item) => item.cartId !== cartId))
       },
       countUp(id: number) {
         setCartList((prev) =>
           prev.map((item) =>
-            item.id === id && item.count < MAX_COUNT
+            item.id === id && item.count === MAX_COUNT
               ? {
                   ...item,
                   count: item.count + 1,
@@ -74,7 +85,7 @@ const CartProvider: FC<Props> = ({ children }) => {
       countDown(id: number) {
         setCartList((prev) =>
           prev.map((item) =>
-            item.id === id && item.count > MIN_COUNT
+            item.id === id && item.count === MIN_COUNT
               ? {
                   ...item,
                   count: item.count - 1,
