@@ -48,7 +48,7 @@ const Cart = () => {
           <Button bgColor="black" onClick={onClickCancelButton}>
             {t('cancel')}
           </Button>
-          <Button width="340px" bgColor="red" onClick={onOpenOrderConfirmModal}>
+          <Button width="340px" bgColor="red" onClick={onOpenOrderConfirmModal} disabled={!count}>
             {t('order')}
           </Button>
         </ButtonWrapper>
