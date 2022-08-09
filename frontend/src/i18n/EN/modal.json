@@ -2,5 +2,6 @@
   "optionTitle": "Select Option",
   "optionCancelText": "Cancel",
   "optionSubmitText": "Order",
-  "checkCartTitle": "Check Cart"
+  "checkCartTitle": "Check Cart",
+  "selectPaymentMethodTitle": "Select Payment Method"
 }

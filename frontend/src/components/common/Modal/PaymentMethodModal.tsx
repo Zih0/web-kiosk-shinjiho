@@ -12,7 +12,7 @@ interface Props {
 
 const PaymentMethodModal: FC<Props> = ({ open, onClose }) => {
   const t = useTranslation('modal')
-  return <Modal open={open} onClose={onClose} title={t('checkCartTitle')}></Modal>
+  return <Modal open={open} onClose={onClose} title={t('selectPaymentMethodTitle')}></Modal>
 }
 
 export default PaymentMethodModal
