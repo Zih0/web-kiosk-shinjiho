@@ -1,7 +1,7 @@
 import React, { FC, useContext } from 'react'
 import styled from 'styled-components'
 
-import { useCartList } from 'src/contexts/CartContext'
+import { CartItemType, MAX_COUNT, MIN_COUNT, useCartAction, useCartList } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
@@ -25,6 +25,20 @@ const OrderConfirmModal: FC<Props> = ({ open, onClose }) => {
     onClose: onClosePaymentMethodModal,
     onOpen: onOpenPaymentMethodModal,
   } = useModal()
+
+  const { remove, countUp, countDown } = useCartAction()
+
+  const onClickXButton = (cartItem: CartItemType) => {
+    remove(cartItem.cartId!)
+  }
+
+  const onClickPlus = (cartItem: CartItemType) => {
+    countUp(cartItem.cartId!)
+  }
+
+  const onClickMinus = (cartItem: CartItemType) => {
+    countDown(cartItem.cartId!)
+  }
 
   const onSubmit = () => {
     onOpenPaymentMethodModal()
@@ -51,12 +65,22 @@ const OrderConfirmModal: FC<Props> = ({ open, onClose }) => {
                 {language === 'EN' && cartItem.en_name}
               </OrderItemName>
               <OrderItemCountWrapper>
-                <Icon name="iconCircleMinus" size={32} />
+                <Icon
+                  name="iconCircleMinus"
+                  size={32}
+                  onClick={() => onClickMinus(cartItem)}
+                  strokeColor={cartItem.count === MIN_COUNT ? 'gray300' : 'black'}
+                />
                 <p>{cartItem.count}</p>
-                <Icon name="iconCirclePlus" size={32} />
+                <Icon
+                  name="iconCirclePlus"
+                  size={32}
+                  onClick={() => onClickPlus(cartItem)}
+                  strokeColor={cartItem.count === MAX_COUNT ? 'gray300' : 'black'}
+                />
               </OrderItemCountWrapper>
               <Price>{cartItem.price * cartItem.count}</Price>
-              <Icon name="iconCircleXLine" size={32} />
+              <Icon name="iconCircleXLine" size={32} onClick={() => onClickXButton(cartItem)} />
             </OrderItemWrapper>
           ))}
         </Wrapper>
