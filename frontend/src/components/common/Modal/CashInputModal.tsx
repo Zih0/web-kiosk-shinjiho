@@ -2,10 +2,13 @@ import { FC, useState } from 'react'
 import styled from 'styled-components'
 
 import { useCartSummary } from 'src/contexts/CartContext'
+import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { priceToString } from 'src/utils/priceUtil'
 
 import Modal from './Modal'
+
+import PaymentLoader from '../Loader/PaymentLoader'
 
 const CASH_LIST: number[] = [500, 1000, 5000, 10000]
 
@@ -18,6 +21,7 @@ const CashInputModal: FC<Props> = ({ open, onClose }) => {
   const t = useTranslation('modal')
   const { price } = useCartSummary()
   const [cash, setCash] = useState(0)
+  const { open: openLoader, onOpen: onOpenLoader, onClose: onCloseLoader } = useModal()
 
   const onClickCashButton = (inputCash: number) => {
     // TODO : Alert
@@ -28,39 +32,44 @@ const CashInputModal: FC<Props> = ({ open, onClose }) => {
 
   const onSubmit = () => {
     // TODO : 주문 API + 영수증 모달
+    onClose()
+    onOpenLoader()
   }
 
   return (
-    <Modal
-      open={open}
-      onClose={onClose}
-      onSubmit={onSubmit}
-      title={t('inputCashTitle')}
-      closeText={t('inputCashCancelText')}
-      submitText={t('inputCashSubmitText')}
-      hasCloseButton
-      hasSubmitButton
-    >
-      <Wrapper>
-        <PriceWrapper>
-          <PriceRow>
-            <p>{t('totalPrice')} : </p>
-            <p className="price">{priceToString(price)}</p>
-          </PriceRow>
-          <PriceRow>
-            <p>{t('inputCash')} : </p>
-            <p className="price">{priceToString(cash)}</p>
-          </PriceRow>
-        </PriceWrapper>
-        <ButtonWrapper>
-          {CASH_LIST.map((cash) => (
-            <CashButton key={cash} onClick={() => onClickCashButton(cash)}>
-              {priceToString(cash)}
-            </CashButton>
-          ))}
-        </ButtonWrapper>
-      </Wrapper>
-    </Modal>
+    <>
+      <Modal
+        open={open}
+        onClose={onClose}
+        onSubmit={onSubmit}
+        title={t('inputCashTitle')}
+        closeText={t('inputCashCancelText')}
+        submitText={t('inputCashSubmitText')}
+        hasCloseButton
+        hasSubmitButton
+      >
+        <Wrapper>
+          <PriceWrapper>
+            <PriceRow>
+              <p>{t('totalPrice')} : </p>
+              <p className="price">{priceToString(price)}</p>
+            </PriceRow>
+            <PriceRow>
+              <p>{t('inputCash')} : </p>
+              <p className="price">{priceToString(cash)}</p>
+            </PriceRow>
+          </PriceWrapper>
+          <ButtonWrapper>
+            {CASH_LIST.map((cash) => (
+              <CashButton key={cash} onClick={() => onClickCashButton(cash)}>
+                {priceToString(cash)}
+              </CashButton>
+            ))}
+          </ButtonWrapper>
+        </Wrapper>
+      </Modal>
+      <PaymentLoader open={openLoader} onClose={onCloseLoader} />
+    </>
   )
 }
 

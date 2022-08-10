@@ -1,23 +1,56 @@
+import { FC, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
 
+import useModal from 'src/hooks/useModal'
+
+import ReceiptModal from '../Modal/ReceiptModal/ReceiptModal'
 import Portal from '../Portal/Portal'
 
+interface Props {
+  open: boolean
+  onClose?: () => void
+}
+
 // reference: https://codepen.io/search/pens?q=coffee+loading
-const Loader = () => {
+const PaymentLoader: FC<Props> = ({ open, onClose }) => {
+  const { open: openReceipt, onOpen: onOpenReceipt, onClose: onCloseReceipt } = useModal()
+
+  useEffect(() => {
+    const randDelay = Math.floor(Math.random() * 4) + 3 * 1000
+    if (open) {
+      setTimeout(() => {
+        onOpenReceipt()
+      }, randDelay)
+    }
+  }, [open])
+
+  if (!open) return null
+
   return (
-    <Portal>
-      <Wrapper>
-        <Dimmer />
-        <CoffeeWrapper>
-          <Coffee />
-          <Text>Loading</Text>
-        </CoffeeWrapper>
-      </Wrapper>
-    </Portal>
+    <>
+      <Portal>
+        <Wrapper>
+          <Dimmer />
+          <CoffeeWrapper>
+            <Coffee />
+            <Text>Loading</Text>
+          </CoffeeWrapper>
+        </Wrapper>
+      </Portal>
+      <ReceiptModal
+        open={openReceipt}
+        onClose={onCloseReceipt}
+        orderNumber={0}
+        paymentMethod={''}
+        paidAmount={0}
+        totalAmount={0}
+        changes={0}
+      />
+    </>
   )
 }
 
-export default Loader
+export default PaymentLoader
 
 const Wrapper = styled.div`
   position: fixed;
