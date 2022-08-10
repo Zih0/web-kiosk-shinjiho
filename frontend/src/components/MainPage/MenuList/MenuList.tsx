@@ -1,22 +1,31 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 
 import { getProductsAPI } from 'src/api/product/product'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import { useAxios } from 'src/hooks/useAxios'
 import { ProductType } from 'src/types/api/product'
 
 import Menu from '../Menu/Menu'
+import MenuSkeleton from '../Menu/MenuSkeleton'
 
 interface Props {
   selected: number
 }
 
 const MenuList: FC<Props> = ({ selected }) => {
-  const { language } = useContext(InternationalizationContext)
-  const { isLoading, data: menuList, refetch } = useAxios(['menuList', `${selected}`], () => getProductsAPI(selected))
+  const { isLoading, data: menuList } = useAxios(['menuList', selected], () => getProductsAPI(selected))
 
-  if (isLoading) return <></>
+  if (isLoading)
+    return (
+      <Wrapper>
+        <MenuSkeleton />
+        <MenuSkeleton />
+        <MenuSkeleton />
+        <MenuSkeleton />
+        <MenuSkeleton />
+        <MenuSkeleton />
+      </Wrapper>
+    )
 
   return (
     <Wrapper>
