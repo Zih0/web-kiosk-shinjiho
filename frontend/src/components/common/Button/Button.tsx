@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import { ColorTheme, ColorToken } from 'src/styles/type'
 
@@ -7,6 +7,7 @@ interface Props {
   width?: 'medium' | 'large' | 'full' | string
   bgColor?: ColorToken
   disabled?: boolean
+  isLoading?: boolean
   className?: string
   children?: React.ReactNode
   onClick?: React.MouseEventHandler<HTMLButtonElement>
@@ -29,11 +30,18 @@ const getWidth = (width?: 'medium' | 'large' | 'full' | string) => {
   }
 }
 
-const Button: FC<Props> = ({ width, bgColor, disabled, className, children, onClick }) => {
+const Button: FC<Props> = ({ width, bgColor, disabled, isLoading, className, children, onClick }) => {
   const buttonWidth = getWidth(width)
 
   return (
-    <StyledButton width={buttonWidth} bgColor={bgColor} className={className} disabled={disabled} onClick={onClick}>
+    <StyledButton
+      width={buttonWidth}
+      bgColor={bgColor}
+      isLoading={isLoading}
+      className={className}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   )
@@ -45,7 +53,10 @@ const getFontColor = (theme: ColorTheme, bgColor: ColorToken) => {
   return ['gray100'].includes(bgColor) ? theme.color.black : theme.color.white
 }
 
-const StyledButton = styled.button<Pick<Props, 'bgColor' | 'width'>>`
+const StyledButton = styled.button<Pick<Props, 'bgColor' | 'width' | 'isLoading'>>`
+  position: relative;
+  overflow: hidden;
+
   padding: 31px 62px;
   min-width: 240px;
   height: 100px;
@@ -64,6 +75,24 @@ const StyledButton = styled.button<Pick<Props, 'bgColor' | 'width'>>`
   color: ${({ theme, bgColor }) => (bgColor ? getFontColor(theme, bgColor) : theme.color.white)};
 
   border-radius: 20px;
+
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      background-color: ${({ theme }) => theme.color.gray100};
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100px;
+        height: 100%;
+        background: ${({ theme }) =>
+          `linear-gradient(to right, ${theme.color.gray100}, ${theme.color.gray200},${theme.color.gray100})`};
+        animation: ${({ theme }) => theme.animation.skeletonLoading} 1.5s infinite linear;
+      }
+    `}
 
   &:active {
     filter: brightness(80%);

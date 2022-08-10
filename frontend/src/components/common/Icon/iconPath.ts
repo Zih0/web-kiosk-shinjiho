@@ -5,3 +5,4 @@ export { ReactComponent as iconCircleXLine } from 'src/assets/icon/circle-x-line
 export { ReactComponent as iconArrowLeft } from 'src/assets/icon/arrow-left.svg'
 export { ReactComponent as iconCash } from 'src/assets/icon/cash.svg'
 export { ReactComponent as iconCreditCard } from 'src/assets/icon/credit-card.svg'
+export { ReactComponent as iconChevronLeft } from 'src/assets/icon/chevron-left.svg'
