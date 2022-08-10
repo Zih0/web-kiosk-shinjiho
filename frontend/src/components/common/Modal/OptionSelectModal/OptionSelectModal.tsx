@@ -9,7 +9,7 @@ import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/produc
 import { priceToString } from 'src/utils/priceUtil'
 
 import Icon from '../../Icon/Icon'
-import { Image } from '../../Image/Image'
+import Image from '../../Image/Image'
 import Modal from '../Modal'
 
 type ExtraPriceType = Record<string, number>

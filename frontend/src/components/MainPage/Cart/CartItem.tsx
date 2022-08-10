@@ -2,7 +2,7 @@ import { FC, useContext } from 'react'
 import styled from 'styled-components'
 
 import Icon from 'src/components/common/Icon/Icon'
-import { Image } from 'src/components/common/Image/Image'
+import Image from 'src/components/common/Image/Image'
 import { CartItemType, MAX_COUNT, MIN_COUNT, useCartAction } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 

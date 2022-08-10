@@ -13,7 +13,7 @@ interface Props {
   onClick?: () => void
 }
 
-export const Image: FC<Props> = ({ name, src, width, height, borderRadius, alt, onClick }) => {
+const Image: FC<Props> = ({ name, src, width, height, borderRadius, alt, onClick }) => {
   const imgSrc = name ? images[name] : src
 
   return (
@@ -22,6 +22,8 @@ export const Image: FC<Props> = ({ name, src, width, height, borderRadius, alt, 
     </ImgWrapper>
   )
 }
+
+export default Image
 
 const ImgWrapper = styled.div<Pick<Props, 'width' | 'height' | 'borderRadius'>>`
   width: ${({ width }) => width && `${width}px`};

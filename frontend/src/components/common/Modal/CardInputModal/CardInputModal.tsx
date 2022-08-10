@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import useModal from 'src/hooks/useModal'
 
-import { Image } from '../../Image/Image'
+import Image from '../../Image/Image'
 import PaymentLoader from '../../Loader/PaymentLoader'
 import Modal from '../Modal'
 
