@@ -7,10 +7,9 @@ import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { priceToString } from 'src/utils/priceUtil'
 
-import Modal from './Modal'
-import PaymentMethodModal from './PaymentMethodModal'
-
-import Icon from '../Icon/Icon'
+import Icon from '../../Icon/Icon'
+import Modal from '../Modal'
+import PaymentMethodModal from '../PaymentMethodModal/PaymentMethodModal'
 
 interface Props {
   open: boolean

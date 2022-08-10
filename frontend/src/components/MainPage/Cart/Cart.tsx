@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import Button from 'src/components/common/Button/Button'
-import OrderConfirmModal from 'src/components/common/Modal/OrderConfirmModal'
+import OrderConfirmModal from 'src/components/common/Modal/OrderConfirmModal/OrderConfirmModal'
 import { useCartAction, useCartList, useCartSummary } from 'src/contexts/CartContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'

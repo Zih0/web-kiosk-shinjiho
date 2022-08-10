@@ -8,10 +8,9 @@ import useTranslation from 'src/hooks/useTranslation'
 import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/product'
 import { priceToString } from 'src/utils/priceUtil'
 
-import Modal from './Modal'
-
-import Icon from '../Icon/Icon'
-import { Image } from '../Image/Image'
+import Icon from '../../Icon/Icon'
+import { Image } from '../../Image/Image'
+import Modal from '../Modal'
 
 type ExtraPriceType = Record<string, number>
 
