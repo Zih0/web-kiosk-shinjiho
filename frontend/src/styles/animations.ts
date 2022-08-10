@@ -7,7 +7,7 @@ export const animations = {
   }
   50%,
   100% {
-    transform: translateX(312px);
+    transform: translateX(200%);
   }
 `,
 }

@@ -5,8 +5,9 @@ import { getProductsAPI } from 'src/api/product/product'
 import { useAxios } from 'src/hooks/useAxios'
 import { ProductType } from 'src/types/api/product'
 
+import MenuListSkeleton from './MenuListSkeleton'
+
 import Menu from '../Menu/Menu'
-import MenuSkeleton from '../Menu/MenuSkeleton'
 
 interface Props {
   selected: number
@@ -15,17 +16,7 @@ interface Props {
 const MenuList: FC<Props> = ({ selected }) => {
   const { isLoading, data: menuList } = useAxios(['menuList', selected], () => getProductsAPI(selected))
 
-  if (isLoading)
-    return (
-      <Wrapper>
-        <MenuSkeleton />
-        <MenuSkeleton />
-        <MenuSkeleton />
-        <MenuSkeleton />
-        <MenuSkeleton />
-        <MenuSkeleton />
-      </Wrapper>
-    )
+  if (isLoading) return <MenuListSkeleton />
 
   return (
     <Wrapper>
