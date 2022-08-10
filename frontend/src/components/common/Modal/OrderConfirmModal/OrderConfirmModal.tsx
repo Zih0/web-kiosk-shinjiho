@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 
 import { CartItemType, MAX_COUNT, MIN_COUNT, useCartAction, useCartList } from 'src/contexts/CartContext'
@@ -44,6 +44,12 @@ const OrderConfirmModal: FC<Props> = ({ open, onClose }) => {
     onOpenPaymentMethodModal()
     onClose()
   }
+
+  useEffect(() => {
+    if (cartList.length !== 0) return
+
+    onClose()
+  }, [cartList])
 
   return (
     <>
