@@ -1,10 +1,11 @@
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { useCartAction, useCartList } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useTranslation from 'src/hooks/useTranslation'
 import { useRouter } from 'src/lib/router/Routes'
+import { PaymentMethodType } from 'src/types/api/order'
 import { priceToString } from 'src/utils/priceUtil'
 
 import Modal from '../Modal'
@@ -13,7 +14,7 @@ interface Props {
   open: boolean
   onClose: () => void
   orderNumber: number
-  paymentMethod: string
+  paymentMethod: PaymentMethodType
   paidAmount: number
   totalAmount: number
   changes: number
@@ -25,17 +26,36 @@ const ReceiptModal: FC<Props> = ({ open, onClose, orderNumber, paymentMethod, pa
   const router = useRouter()
   const cartList = useCartList()
   const { clear } = useCartAction()
+  const [disappearTimeout, setDisappearTimeout] = useState(10)
 
-  const onSubmit = () => {
+  const onDisappearReceipt = () => {
     onClose()
     clear()
     router('/')
   }
 
+  useEffect(() => {
+    if (!open) return
+
+    const interval = setInterval(() => {
+      setDisappearTimeout((prev) => prev - 1)
+
+      return () => {
+        clearInterval(interval)
+      }
+    }, 1000)
+  }, [open])
+
+  useEffect(() => {
+    if (disappearTimeout !== 0) return
+
+    onDisappearReceipt()
+  }, [disappearTimeout])
+
   return (
     <Modal
       open={open}
-      onSubmit={onSubmit}
+      onSubmit={onDisappearReceipt}
       title={t('receiptTitle')}
       submitText={t('receiptSubmitText')}
       hasSubmitButton
@@ -68,22 +88,29 @@ const ReceiptModal: FC<Props> = ({ open, onClose, orderNumber, paymentMethod, pa
           ))}
         </OrderListWrapper>
         <PaymentMethod>
-          {t('paymentMethod')} : {paymentMethod}
+          {t('paymentMethod')} : {paymentMethod === 'credit_card' ? t('creditCard') : t('cash')}
         </PaymentMethod>
         <PriceSummaryWrapper>
           <PriceSummaryRow>
             <p>{t('inputCash')}</p>
-            <p>{paidAmount}</p>
+            <p>{priceToString(paidAmount)}</p>
           </PriceSummaryRow>
           <PriceSummaryRow>
             <p>{t('totalPrice')}</p>
-            <p>{totalAmount}</p>
+            <p>{priceToString(totalAmount)}</p>
           </PriceSummaryRow>
-          <PriceSummaryRow>
-            <p>{t('changes')}</p>
-            <p>{changes}</p>
-          </PriceSummaryRow>
+          {paymentMethod === 'cash' && (
+            <PriceSummaryRow>
+              <p>{t('changes')}</p>
+              <p>{priceToString(changes)}</p>
+            </PriceSummaryRow>
+          )}
         </PriceSummaryWrapper>
+        <DisappearMessage>
+          {t('receiptCloseAnnounce1')}
+          <em>{disappearTimeout}</em>
+          {t('receiptCloseAnnounce2')}
+        </DisappearMessage>
       </div>
     </Modal>
   )
@@ -172,4 +199,17 @@ const PriceSummaryRow = styled.div`
 
   font-size: 24px;
   line-height: 29px;
+`
+
+const DisappearMessage = styled.p`
+  width: 652px;
+  position: absolute;
+  bottom: 184px;
+
+  font-size: 28px;
+  line-height: 33px;
+
+  em {
+    margin-left: 4px;
+  }
 `

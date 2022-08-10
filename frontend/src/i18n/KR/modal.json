@@ -18,7 +18,7 @@
   "orderNumber": "주문 번호",
   "paymentMethod": "결제방식",
   "changes": "잔돈",
-  "receiptCloseAnnounce1": "주의 :이 화면은",
+  "receiptCloseAnnounce1": "주의 : 이 화면은",
   "receiptCloseAnnounce2": "초 뒤에 자동으로 사라집니다",
   "receiptSubmitText": "확인"
 }

@@ -1,7 +1,10 @@
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
+import { orderMenu } from 'src/api/order/order'
+import { useCartList, useCartSummary } from 'src/contexts/CartContext'
 import useModal from 'src/hooks/useModal'
+import { OrderReceiptType, PaymentMethodType } from 'src/types/api/order'
 
 import ReceiptModal from '../Modal/ReceiptModal/ReceiptModal'
 import Portal from '../Portal/Portal'
@@ -9,19 +12,47 @@ import Portal from '../Portal/Portal'
 interface Props {
   open: boolean
   onClose?: () => void
+  paymentMethod: PaymentMethodType
+  paidAmount?: number
 }
 
 // reference: https://codepen.io/search/pens?q=coffee+loading
-const PaymentLoader: FC<Props> = ({ open, onClose }) => {
+const PaymentLoader: FC<Props> = ({ open, onClose, paymentMethod, paidAmount }) => {
+  const cartList = useCartList()
+  const { price } = useCartSummary()
   const { open: openReceipt, onOpen: onOpenReceipt, onClose: onCloseReceipt } = useModal()
+  const [orderResponse, setOrderResponse] = useState<OrderReceiptType>({
+    order_number: 0,
+    payment_method: paymentMethod,
+    paid_amount: 0,
+    total_amount: 0,
+  })
+
+  const orderMenus = async () => {
+    const orderProductsList = cartList.map((cartItem) => ({ product_id: cartItem.id, count: cartItem.count }))
+    const newPaidAmount = paymentMethod === 'credit_card' ? price : paidAmount
+    const data = await orderMenu({
+      paymentMethod,
+      paidAmount: newPaidAmount as number,
+      totalAmount: price,
+      products: orderProductsList,
+    })
+    setOrderResponse(data)
+  }
 
   useEffect(() => {
+    if (!open) return
+
     const randDelay = Math.floor(Math.random() * 4) + 3 * 1000
-    if (open) {
-      setTimeout(() => {
+    setTimeout(async () => {
+      try {
+        await orderMenus()
         onOpenReceipt()
-      }, randDelay)
-    }
+      } catch (err) {
+        // Alert
+        console.error(err)
+      }
+    }, randDelay)
   }, [open])
 
   if (!open) return null
@@ -40,11 +71,11 @@ const PaymentLoader: FC<Props> = ({ open, onClose }) => {
       <ReceiptModal
         open={openReceipt}
         onClose={onCloseReceipt}
-        orderNumber={0}
-        paymentMethod={''}
-        paidAmount={0}
-        totalAmount={0}
-        changes={0}
+        orderNumber={orderResponse.order_number}
+        paymentMethod={paymentMethod}
+        paidAmount={orderResponse.paid_amount}
+        totalAmount={orderResponse.total_amount}
+        changes={orderResponse.paid_amount - orderResponse.total_amount}
       />
     </>
   )

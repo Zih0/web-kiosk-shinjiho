@@ -31,7 +31,6 @@ const CashInputModal: FC<Props> = ({ open, onClose }) => {
   }
 
   const onSubmit = () => {
-    // TODO : 주문 API + 영수증 모달
     onClose()
     onOpenLoader()
   }
@@ -68,7 +67,7 @@ const CashInputModal: FC<Props> = ({ open, onClose }) => {
           </ButtonWrapper>
         </Wrapper>
       </Modal>
-      <PaymentLoader open={openLoader} onClose={onCloseLoader} />
+      <PaymentLoader open={openLoader} onClose={onCloseLoader} paymentMethod="cash" paidAmount={cash} />
     </>
   )
 }

@@ -18,7 +18,7 @@
   "orderNumber": "Order No.",
   "paymentMethod": "Payment Method",
   "changes": "Changes",
-  "receiptCloseAnnounce1": "This screen automatically disappears after",
+  "receiptCloseAnnounce1": "This screen disappears after ",
   "receiptCloseAnnounce2": "seconds",
   "receiptSubmitText": "OK"
 }
