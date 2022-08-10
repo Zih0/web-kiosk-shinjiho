@@ -40,6 +40,9 @@ export class Product extends BaseEntity {
   })
   is_soldout: boolean
 
+  @Column({ default: '' })
+  option: string
+
   @Column()
   category_id: number
 

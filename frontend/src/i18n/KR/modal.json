@@ -13,5 +13,12 @@
   "inputCashTitle": "현금을 투입해주세요",
   "inputCash": "투입 금액",
   "inputCashCancelText": "취소",
-  "inputCashSubmitText": "결제하기"
+  "inputCashSubmitText": "결제하기",
+  "receiptTitle": "주문이 완료되었습니다",
+  "orderNumber": "주문 번호",
+  "paymentMethod": "결제방식",
+  "changes": "잔돈",
+  "receiptCloseAnnounce1": "주의 : 이 화면은",
+  "receiptCloseAnnounce2": "초 뒤에 자동으로 사라집니다",
+  "receiptSubmitText": "확인"
 }

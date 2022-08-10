@@ -30,7 +30,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
   const { language } = useContext(InternationalizationContext)
   const { add } = useCartAction()
   const t = useTranslation('modal')
-  const { count, increaseCount, decreaseCount, isMaxCount, isMinCount } = useCount()
+  const { count, increaseCount, decreaseCount, initCount, isMaxCount, isMinCount } = useCount()
   const [extraPrice, setExtraPrice] = useState<ExtraPriceType>({})
   const [selectedOption, setSelectedOption] = useState<SelectedOptionType>({})
 
@@ -66,6 +66,7 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
   const onCloseModal = () => {
     onClose && onClose()
     setSelectedOption({})
+    initCount()
   }
 
   const onSubmit = () => {
