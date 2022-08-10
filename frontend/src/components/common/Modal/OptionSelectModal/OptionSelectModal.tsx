@@ -1,15 +1,14 @@
-import React, { FC, useContext, useState } from 'react'
+import { FC, useState } from 'react'
 import styled from 'styled-components'
 
 import { SelectedOptionType, useCartAction } from 'src/contexts/CartContext'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useCount from 'src/hooks/useCount'
 import useTranslation from 'src/hooks/useTranslation'
 import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/product'
-import { priceToString } from 'src/utils/priceUtil'
 
-import Icon from '../../Icon/Icon'
-import Image from '../../Image/Image'
+import OptionList from './OptionList'
+import ProductSummary from './ProductSummary'
+
 import Modal from '../Modal'
 
 type ExtraPriceType = Record<string, number>
@@ -26,7 +25,6 @@ interface Props {
 }
 
 const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enName, price, options }) => {
-  const { language } = useContext(InternationalizationContext)
   const { add } = useCartAction()
   const t = useTranslation('modal')
   const { count, increaseCount, decreaseCount, initCount, isMaxCount, isMinCount } = useCount()
@@ -127,62 +125,21 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
     >
       <Wrapper>
         <LeftSection>
-          <Image src={imgUrl} width={224} height={224} />
-          <ProductName>
-            {language === 'KR' && krName}
-            {language === 'EN' && enName}
-          </ProductName>
-          <ProductPrice>{priceToString((price + extraPriceSum) * count)}</ProductPrice>
-          <CountWrapper>
-            <Icon
-              name="iconCircleMinus"
-              size={36}
-              onClick={onClickMinus}
-              strokeColor={isMinCount ? 'gray300' : 'black'}
-            />
-            <span>{count}</span>
-            <Icon
-              name="iconCirclePlus"
-              size={36}
-              onClick={onClickPlus}
-              strokeColor={isMaxCount ? 'gray300' : 'black'}
-            />
-          </CountWrapper>
+          <ProductSummary
+            imgUrl={imgUrl}
+            krName={krName}
+            enName={enName}
+            price={price}
+            extraPrice={extraPriceSum}
+            count={count}
+            isMinCount={isMinCount}
+            isMaxCount={isMaxCount}
+            onClickMinus={onClickMinus}
+            onClickPlus={onClickPlus}
+          />
         </LeftSection>
         <RightSection>
-          {options.map((option) => (
-            <div key={option.id}>
-              <OptionTitle>
-                {language === 'KR' && option.kr_name}
-                {language === 'EN' && option.en_name}
-                {option.is_required && '*'}
-              </OptionTitle>
-              <OptionDetailList>
-                {option.option_details.map((detail) => (
-                  <React.Fragment key={detail.id}>
-                    <input
-                      type="radio"
-                      id={`radio-${detail.id}`}
-                      value={detail.id}
-                      required={option.is_required}
-                      checked={selectedOption[option.id]?.detailId === detail.id}
-                      readOnly
-                      hidden
-                    />
-                    <OptionDetailLabel
-                      htmlFor={`radio-${detail.id}`}
-                      key={detail.id}
-                      onClick={() => onClickOptionDetail(option.id, detail)}
-                    >
-                      {language === 'KR' && detail.kr_name}
-                      {language === 'EN' && detail.en_name}
-                      {detail.price > 0 && <ExtraPrice>+{detail.price}</ExtraPrice>}
-                    </OptionDetailLabel>
-                  </React.Fragment>
-                ))}
-              </OptionDetailList>
-            </div>
-          ))}
+          <OptionList options={options} selectedOption={selectedOption} onClickOptionDetail={onClickOptionDetail} />
         </RightSection>
       </Wrapper>
     </Modal>
@@ -204,74 +161,8 @@ const LeftSection = styled.div`
   align-items: center;
 `
 
-const ProductName = styled.p`
-  margin-top: 14px;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 140%;
-  ${({ theme }) => theme.color.black}
-`
-
-const ProductPrice = styled.p`
-  margin-top: 8px;
-  font-size: 32px;
-  line-height: 140%;
-  ${({ theme }) => theme.color.black}
-`
-
-const CountWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-
-  span {
-    width: 30px;
-    font-weight: 600;
-    font-size: 48px;
-    line-height: 57px;
-    text-align: center;
-  }
-`
-
 const RightSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-`
-
-const OptionTitle = styled.p`
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 140%;
-`
-
-const OptionDetailList = styled.div`
-  margin-top: 14px;
-  display: flex;
-  gap: 32px;
-`
-
-const OptionDetailLabel = styled.label`
-  width: 80px;
-  height: 80px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  border: 1px solid ${({ theme }) => theme.color.black};
-  border-radius: 24px;
-
-  font-size: 24px;
-  line-height: 140%;
-
-  input[type='radio']:checked + & {
-    border: 2px solid ${({ theme }) => theme.color.red};
-    color: ${({ theme }) => theme.color.red};
-  }
-`
-
-const ExtraPrice = styled.p`
-  font-size: 20px;
 `
