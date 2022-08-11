@@ -75,7 +75,7 @@ const ToastWrapper = styled.div<{ status: ToastStatus; visible: boolean }>`
   font-size: 30px;
 
   color: white;
-  background-color: ${({ status }) => (status === 'success' ? 'green' : 'red')};
+  background-color: ${({ status, theme }) => (status === 'success' ? theme.color.success : theme.color.error)};
 
   border-radius: 4px;
 
