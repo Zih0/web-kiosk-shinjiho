@@ -1,4 +1,4 @@
-import { FC, createContext, useState } from 'react'
+import { FC, createContext, useContext, useState } from 'react'
 
 import { InternationalizationType } from 'src/i18n'
 
@@ -33,6 +33,12 @@ const InternationalizationProvider: FC<Props> = ({ children }) => {
       {children}
     </InternationalizationContext.Provider>
   )
+}
+
+export const useLanguage = () => {
+  const { language } = useContext(InternationalizationContext)
+
+  return language
 }
 
 export default InternationalizationProvider

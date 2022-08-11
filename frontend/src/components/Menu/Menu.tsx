@@ -1,9 +1,9 @@
-import { FC, useContext, useEffect, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 
 import Image from 'src/components/common/Image/Image'
 import OptionSelectModal from 'src/components/common/Modal/OptionSelectModal/OptionSelectModal'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { useLanguage } from 'src/contexts/InternationalizationContext'
 import useModal from 'src/hooks/useModal'
 import { ProductOptionType } from 'src/types/api/product'
 
@@ -17,7 +17,7 @@ interface Props {
 }
 
 const Menu: FC<Props> = ({ id, imgUrl, krName, enName, price, options }) => {
-  const { language } = useContext(InternationalizationContext)
+  const language = useLanguage()
   const { open, onOpen, onClose } = useModal()
 
   return (

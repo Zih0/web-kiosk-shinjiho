@@ -1,11 +1,11 @@
-import { useContext, useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { useLanguage } from 'src/contexts/InternationalizationContext'
 
 type TextObjType = Record<string, string>
 
 const useTranslation = (fileName: string) => {
-  const { language } = useContext(InternationalizationContext)
+  const language = useLanguage()
   const [textObject, setTextObject] = useState<TextObjType>({})
 
   const getJsonData = async () => {

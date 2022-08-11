@@ -1,9 +1,9 @@
-import React, { FC, useContext, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import styled from 'styled-components'
 
 import { MAX_COUNT, MIN_COUNT } from 'src/constants/cart'
 import { CartItemType, useCartAction, useCartList } from 'src/contexts/CartContext'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { useLanguage } from 'src/contexts/InternationalizationContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { priceToString } from 'src/utils/priceUtil'
@@ -19,7 +19,7 @@ interface Props {
 
 const OrderConfirmModal: FC<Props> = ({ open, onClose }) => {
   const t = useTranslation('modal')
-  const { language } = useContext(InternationalizationContext)
+  const language = useLanguage()
   const cartList = useCartList()
   const {
     open: openPaymentMethodModal,

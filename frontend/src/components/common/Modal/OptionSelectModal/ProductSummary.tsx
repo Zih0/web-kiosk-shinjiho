@@ -1,7 +1,7 @@
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
 
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { useLanguage } from 'src/contexts/InternationalizationContext'
 import { priceToString } from 'src/utils/priceUtil'
 
 import Icon from '../../Icon/Icon'
@@ -32,7 +32,7 @@ const ProductSummary: FC<Props> = ({
   onClickMinus,
   onClickPlus,
 }) => {
-  const { language } = useContext(InternationalizationContext)
+  const language = useLanguage()
 
   return (
     <>

@@ -5,14 +5,14 @@ import Icon from 'src/components/common/Icon/Icon'
 import Image from 'src/components/common/Image/Image'
 import { MAX_COUNT, MIN_COUNT } from 'src/constants/cart'
 import { CartItemType, useCartAction } from 'src/contexts/CartContext'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { InternationalizationContext, useLanguage } from 'src/contexts/InternationalizationContext'
 
 interface Props {
   cartItem: CartItemType
 }
 
 const CartItem: FC<Props> = ({ cartItem }) => {
-  const { language } = useContext(InternationalizationContext)
+  const language = useLanguage()
   const { remove, countUp, countDown } = useCartAction()
 
   const onClickXButton = () => {

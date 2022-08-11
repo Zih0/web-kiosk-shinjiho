@@ -112,11 +112,9 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
       },
     }))
 
-    if (!detail.price) return
-
     setExtraPrice((prev) => ({
       ...prev,
-      [optionId]: detail.price,
+      [optionId]: detail.price || 0,
     }))
   }
 
