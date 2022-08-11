@@ -3,10 +3,9 @@ import styled from 'styled-components'
 
 import useModal from 'src/hooks/useModal'
 
-import Modal from './Modal'
-
-import { Image } from '../Image/Image'
-import PaymentLoader from '../Loader/PaymentLoader'
+import Image from '../../Image/Image'
+import PaymentLoader from '../../Loader/PaymentLoader'
+import Modal from '../Modal'
 
 const CARD_DELAY = 2000
 

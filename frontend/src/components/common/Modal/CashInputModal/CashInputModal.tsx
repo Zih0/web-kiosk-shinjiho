@@ -6,9 +6,8 @@ import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { priceToString } from 'src/utils/priceUtil'
 
-import Modal from './Modal'
-
-import PaymentLoader from '../Loader/PaymentLoader'
+import PaymentLoader from '../../Loader/PaymentLoader'
+import Modal from '../Modal'
 
 const CASH_LIST: number[] = [500, 1000, 5000, 10000]
 

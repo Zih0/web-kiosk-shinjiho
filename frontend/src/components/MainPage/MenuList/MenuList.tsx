@@ -1,8 +1,12 @@
+import { AxiosError } from 'axios'
 import { FC } from 'react'
 import styled from 'styled-components'
 
 import { getProductsAPI } from 'src/api/product/product'
+import ErrorFallback from 'src/components/common/Error/ErrorFallback'
+import { useCartAction } from 'src/contexts/CartContext'
 import { useAxios } from 'src/hooks/useAxios'
+import { useRouter } from 'src/lib/router/Routes'
 import { ProductType } from 'src/types/api/product'
 
 import MenuListSkeleton from './MenuListSkeleton'
@@ -14,9 +18,21 @@ interface Props {
 }
 
 const MenuList: FC<Props> = ({ selected }) => {
-  const { isLoading, data: menuList } = useAxios(['menuList', selected], () => getProductsAPI(selected))
+  const {
+    isLoading,
+    data: menuList,
+    error,
+  } = useAxios<ProductType[], AxiosError>(['menuList', selected], () => getProductsAPI(selected))
+  const router = useRouter()
+  const { clear } = useCartAction()
+  const reset = () => {
+    router('/')
+    clear()
+  }
 
   if (isLoading) return <MenuListSkeleton />
+
+  if (error) return <ErrorFallback reset={reset} message={error.message} />
 
   return (
     <Wrapper>
@@ -38,25 +54,9 @@ const MenuList: FC<Props> = ({ selected }) => {
 export default MenuList
 
 const Wrapper = styled.div`
-  width: calc(100% + 20px);
-  margin-top: 60px;
-
-  height: 894px;
-
-  overflow-y: auto;
+  height: 100%;
 
   display: grid;
   grid-template-columns: repeat(3, 312px);
   gap: 30px;
-
-  &::-webkit-scrollbar {
-    width: 10px;
-    background-color: ${({ theme }) => theme.color.gray100};
-    border-radius: 8px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) => theme.color.gray500};
-    border-radius: 8px;
-  }
 `

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 
 import { useCartSummary } from 'src/contexts/CartContext'
@@ -6,11 +6,10 @@ import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { priceToString } from 'src/utils/priceUtil'
 
-import CardInputModal from './CardInputModal'
-import CashInputModal from './CashInputModal'
-import Modal from './Modal'
-
-import Icon from '../Icon/Icon'
+import Icon from '../../Icon/Icon'
+import CardInputModal from '../CardInputModal/CardInputModal'
+import CashInputModal from '../CashInputModal/CashInputModal'
+import Modal from '../Modal'
 
 interface Props {
   open: boolean
