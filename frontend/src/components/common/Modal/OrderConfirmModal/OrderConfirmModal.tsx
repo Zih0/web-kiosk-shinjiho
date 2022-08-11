@@ -112,6 +112,9 @@ export default OrderConfirmModal
 
 const Wrapper = styled.div`
   margin-top: 120px;
+  height: 600px;
+
+  overflow-y: auto;
 `
 
 const OrderItemWrapper = styled.div`
