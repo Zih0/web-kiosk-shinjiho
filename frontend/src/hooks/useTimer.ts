@@ -1,13 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import { useCartAction } from 'src/contexts/CartContext'
-import { useRouter } from 'src/lib/router/Routes'
-
 const TIME = 30
 
-const useTimer = () => {
-  const router = useRouter()
-  const { clear } = useCartAction()
+const useTimer = (reset: () => void) => {
   const [time, setTime] = useState(TIME)
 
   useEffect(() => {
@@ -22,8 +17,7 @@ const useTimer = () => {
 
   useEffect(() => {
     if (time === 0) {
-      router('/')
-      clear()
+      reset()
     }
 
     const resetTime = () => {
