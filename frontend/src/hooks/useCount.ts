@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react'
 
-export const MIN_COUNT = 1
-export const MAX_COUNT = 9
+import { MAX_COUNT, MIN_COUNT } from 'src/constants/cart'
 
 const useCount = () => {
   const [count, setCount] = useState(MIN_COUNT)

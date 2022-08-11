@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import styled from 'styled-components'
 
 import { SelectedOptionType, useCartAction } from 'src/contexts/CartContext'
+import { useToast } from 'src/contexts/ToastContext'
 import useCount from 'src/hooks/useCount'
 import useTranslation from 'src/hooks/useTranslation'
 import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/product'
@@ -27,6 +28,7 @@ interface Props {
 const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enName, price, options }) => {
   const { add } = useCartAction()
   const t = useTranslation('modal')
+  const toast = useToast()
   const { count, increaseCount, decreaseCount, initCount, isMaxCount, isMinCount } = useCount()
   const [extraPrice, setExtraPrice] = useState<ExtraPriceType>({})
   const [selectedOption, setSelectedOption] = useState<SelectedOptionType>({})
@@ -67,7 +69,10 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
   }
 
   const onSubmit = () => {
-    if (!checkRequiredOptions()) return
+    if (!checkRequiredOptions()) {
+      toast.error(t('requiredOptionErrorToast'), { timeout: 3000 })
+      return
+    }
 
     add({
       count,
@@ -78,6 +83,9 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
       thumbnail: imgUrl,
       selectedOptions: selectedOption,
     })
+
+    setExtraPrice({})
+
     onCloseModal()
   }
 

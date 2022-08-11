@@ -20,5 +20,7 @@
   "changes": "Changes",
   "receiptCloseAnnounce1": "This screen disappears after ",
   "receiptCloseAnnounce2": "seconds",
-  "receiptSubmitText": "OK"
+  "receiptSubmitText": "OK",
+  "requiredOptionErrorToast": "Select Required Option",
+  "exceededAmountErrorToast": "The amount you can put in has been exceeded."
 }

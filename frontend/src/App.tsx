@@ -7,7 +7,9 @@ import { theme } from 'src/styles/theme'
 
 import Router from './Router'
 import { initAxiosConfig } from './api'
+import Toast from './components/common/Modal/Toast/Toast'
 import ServerStateProvider from './contexts/ServerStateCacheContext'
+import ToastProvider from './contexts/ToastContext'
 
 function App() {
   useLayoutEffect(() => {
@@ -19,7 +21,10 @@ function App() {
       <InternationalizationProvider>
         <ThemeProvider theme={theme}>
           <GlobalStyle />
-          <Router />
+          <ToastProvider>
+            <Router />
+            <Toast />
+          </ToastProvider>
         </ThemeProvider>
       </InternationalizationProvider>
     </ServerStateProvider>

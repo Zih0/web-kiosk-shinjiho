@@ -1,5 +1,6 @@
 import { FC, createContext, useContext, useMemo, useRef, useState } from 'react'
 
+import { MAX_COUNT, MIN_COUNT } from 'src/constants/cart'
 import { ProductType } from 'src/types/api/product'
 
 interface SelectedDetailOptionType {
@@ -33,14 +34,10 @@ export const CartActionContext = createContext<CartActionType>({
   countDown: () => {},
 })
 
-export const MAX_COUNT = 9
-export const MIN_COUNT = 1
-
 interface Props {
   children: React.ReactNode
 }
 
-// TODO : 옵션에 따른 아이템 분기처리
 const CartProvider: FC<Props> = ({ children }) => {
   const [cartList, setCartList] = useState<CartItemType[]>([])
   const idRef = useRef(0)

@@ -1,7 +1,8 @@
 import React, { FC, useContext, useEffect } from 'react'
 import styled from 'styled-components'
 
-import { CartItemType, MAX_COUNT, MIN_COUNT, useCartAction, useCartList } from 'src/contexts/CartContext'
+import { MAX_COUNT, MIN_COUNT } from 'src/constants/cart'
+import { CartItemType, useCartAction, useCartList } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
@@ -111,6 +112,9 @@ export default OrderConfirmModal
 
 const Wrapper = styled.div`
   margin-top: 120px;
+  height: 600px;
+
+  overflow-y: auto;
 `
 
 const OrderItemWrapper = styled.div`

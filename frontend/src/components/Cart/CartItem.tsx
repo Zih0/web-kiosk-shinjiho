@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 import Icon from 'src/components/common/Icon/Icon'
 import Image from 'src/components/common/Image/Image'
-import { CartItemType, MAX_COUNT, MIN_COUNT, useCartAction } from 'src/contexts/CartContext'
+import { MAX_COUNT, MIN_COUNT } from 'src/constants/cart'
+import { CartItemType, useCartAction } from 'src/contexts/CartContext'
 import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
 
 interface Props {
@@ -55,7 +56,7 @@ export default CartItem
 
 const Wrapper = styled.div`
   position: relative;
-  width: 160px;
+  min-width: 160px;
   height: 200px;
 
   display: flex;
@@ -76,15 +77,20 @@ const ProductName = styled.p`
 
 const CountWrapper = styled.div`
   margin-top: 8px;
+  width: 100%;
+
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
 `
 
 const Count = styled.p`
+  width: 40px;
+
   font-weight: 600;
   font-size: 32px;
   line-height: 38px;
+  text-align: center;
 
   color: ${({ theme }) => theme.color.black};
 `

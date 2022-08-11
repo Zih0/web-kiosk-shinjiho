@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Button from 'src/components/common/Button/Button'
 import OrderConfirmModal from 'src/components/common/Modal/OrderConfirmModal/OrderConfirmModal'
 import { useCartAction, useCartList, useCartSummary } from 'src/contexts/CartContext'
+import { useToast } from 'src/contexts/ToastContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { useRouter } from 'src/lib/router/Routes'
@@ -14,6 +15,7 @@ import Time from './Time'
 const Cart = () => {
   const router = useRouter()
   const t = useTranslation('main')
+  const toast = useToast()
   const cartList = useCartList()
   const { clear } = useCartAction()
   const { count, price } = useCartSummary()
@@ -25,9 +27,10 @@ const Cart = () => {
   }
 
   const onOpenOrderConfirmModal = () => {
-    // TODO : Alert 구현 후, Alert 추가 예정
-    if (!count) return
-
+    if (!count) {
+      toast.error(t('notMenuErrorToast'))
+      return
+    }
     onOpenModal()
   }
 
@@ -52,7 +55,7 @@ const Cart = () => {
           <Button bgColor="black" onClick={onClickCancelButton}>
             {t('cancel')}
           </Button>
-          <Button width="340px" bgColor="red" onClick={onOpenOrderConfirmModal} disabled={!count}>
+          <Button width="340px" bgColor="red" onClick={onOpenOrderConfirmModal}>
             {t('order')}
           </Button>
         </ButtonWrapper>
@@ -79,7 +82,11 @@ const Wrapper = styled.div`
 `
 
 const CartListWrapper = styled.div`
+  width: 100%;
   min-height: 200px;
+
+  overflow-x: auto;
+
   display: flex;
   gap: 24px;
 `

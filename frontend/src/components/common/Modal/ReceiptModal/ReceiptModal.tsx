@@ -179,6 +179,7 @@ const Price = styled.p`
 `
 
 const PaymentMethod = styled.p`
+  margin-top: 12px;
   font-weight: 600;
   font-size: 28px;
   line-height: 33px;

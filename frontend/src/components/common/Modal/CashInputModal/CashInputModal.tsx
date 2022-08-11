@@ -2,6 +2,7 @@ import { FC, useState } from 'react'
 import styled from 'styled-components'
 
 import { useCartSummary } from 'src/contexts/CartContext'
+import { useToast } from 'src/contexts/ToastContext'
 import useModal from 'src/hooks/useModal'
 import useTranslation from 'src/hooks/useTranslation'
 import { priceToString } from 'src/utils/priceUtil'
@@ -18,14 +19,16 @@ interface Props {
 
 const CashInputModal: FC<Props> = ({ open, onClose }) => {
   const t = useTranslation('modal')
+  const toast = useToast()
   const { price } = useCartSummary()
   const [cash, setCash] = useState(0)
   const { open: openLoader, onOpen: onOpenLoader, onClose: onCloseLoader } = useModal()
 
   const onClickCashButton = (inputCash: number) => {
-    // TODO : Alert
-    if (price * 2 < cash) return
-
+    if (price * 2 < cash) {
+      toast.error(t('exceededAmountErrorToast'))
+      return
+    }
     setCash((prev) => prev + inputCash)
   }
 
