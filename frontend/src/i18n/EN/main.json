@@ -4,5 +4,7 @@
   "cancel": "Cancel",
   "order": "Order",
   "totalCount": "Total Quantity",
-  "price": "Price"
+  "price": "Price",
+  "disappearText1": "If there is no response for ",
+  "disappearText2": "seconds, it is automatically terminated."
 }
