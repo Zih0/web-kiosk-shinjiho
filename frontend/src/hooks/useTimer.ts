@@ -24,9 +24,9 @@ const useTimer = (reset: () => void) => {
       setTime(TIME)
     }
 
-    window.addEventListener('mouseup', resetTime)
+    window.addEventListener('pointerdown', resetTime)
     return () => {
-      window.removeEventListener('mouseup', resetTime)
+      window.removeEventListener('pointerdown', resetTime)
     }
   }, [time])
 
