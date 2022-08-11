@@ -41,7 +41,7 @@ const ToastProvider: FC<Props> = ({ children, defaultTimeout = 2000 }) => {
       timeout: options?.timeout ?? defaultTimeout,
     }
 
-    setToastList((prev) => [...prev, newToast])
+    setToastList((prev) => [newToast, ...prev])
   }
 
   const removeToast = (id: number) => {
