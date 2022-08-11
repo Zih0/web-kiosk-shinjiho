@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import MenuSkeleton from '../Menu/MenuSkeleton'
+import MenuSkeleton from '../../common/Skeleton/MenuSkeleton'
 
 const MenuListSkeleton = () => {
   return (

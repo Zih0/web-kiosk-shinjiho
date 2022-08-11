@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Cart from 'src/components/MainPage/Cart/Cart'
 import CategoryTabs from 'src/components/MainPage/CategoryTabs/CategoryTabs'
-import MenuList from 'src/components/MainPage/MenuList/MenuList'
+import MenuList from 'src/components/MainPage/Menu/MenuList'
 import Header from 'src/components/common/Header/Header'
 
 const Main = () => {
