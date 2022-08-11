@@ -1,0 +1,23 @@
+name: deploy
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run scripts in server
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd ~/web-kiosk-shinjiho/frontend
+            npm install
+            npm run build
+            cd ~/web-kiosk-shinjiho/backend
+            npm install
+            pm2 reload server
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          key: ${{ secrets.PRIVATE_KEY }}

@@ -42,7 +42,6 @@ const PaymentLoader: FC<Props> = ({ open, onClose, paymentMethod, paidAmount }) 
   const orderMenus = async () => {
     const orderProductsList = cartList.map((cartItem) => ({ product_id: cartItem.id, count: cartItem.count }))
     const newPaidAmount = paymentMethod === 'credit_card' ? price : paidAmount
-
     const data = await orderMenu({
       paymentMethod,
       paidAmount: newPaidAmount as number,
