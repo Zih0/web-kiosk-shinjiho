@@ -1,7 +1,7 @@
 # Kiosk.
 
 [Design(Figma)](https://www.figma.com/file/s7MUi94fpbUShflS7hG82W/%EC%9A%B0%EC%95%84%ED%95%9C-%ED%85%8C%ED%81%AC-%EC%BA%A0%ED%94%84-5%2C6-%EC%A3%BC%EC%B0%A8---%ED%82%A4%EC%98%A4%EC%8A%A4%ED%81%AC?node-id=0%3A1)
-| [Demo](http://13.209.183.185:4000)
+| [Demo](54.180.132.31)
 
 ### 데모 시 주의사항
 
