@@ -1,4 +1,4 @@
-import { FC, createContext, useContext, useRef } from 'react'
+import { FC, createContext, useContext, useMemo, useRef } from 'react'
 
 type Cache = Record<string, any>
 
@@ -26,17 +26,20 @@ interface Props {
 
 const ServerStateProvider: FC<Props> = ({ children }) => {
   const cacheRef = useRef<Cache>({ cache: {} })
-  const actions = {
-    setCache: (key: string, data: any) => {
-      cacheRef.current.cache[key] = data
-    },
-    remove: (key: string) => {
-      cacheRef.current.cache[key] = null
-    },
-    clearCache: () => {
-      cacheRef.current.cache = {}
-    },
-  }
+  const actions = useMemo(
+    () => ({
+      setCache: (key: string, data: any) => {
+        cacheRef.current.cache[key] = data
+      },
+      remove: (key: string) => {
+        cacheRef.current.cache[key] = null
+      },
+      clearCache: () => {
+        cacheRef.current.cache = {}
+      },
+    }),
+    [],
+  )
 
   return (
     <ServerStateContext.Provider
