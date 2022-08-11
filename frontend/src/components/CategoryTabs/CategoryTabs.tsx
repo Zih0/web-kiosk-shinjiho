@@ -1,8 +1,8 @@
-import { FC, useContext, useState } from 'react'
+import { FC, useState } from 'react'
 import styled from 'styled-components'
 
 import { getCategoriesAPI } from 'src/api/category/category'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { useLanguage } from 'src/contexts/InternationalizationContext'
 import { useAxios } from 'src/hooks/useAxios'
 
 import CategoryTabsSkeleton from './CategoryTabsSkeleton'
@@ -17,7 +17,7 @@ interface Props {
 const OFFSET = 6
 
 const CategoryTabs: FC<Props> = ({ selected, onClickCategory }) => {
-  const { language } = useContext(InternationalizationContext)
+  const language = useLanguage()
   const { isLoading, data: categories } = useAxios(['categories'], getCategoriesAPI)
   const [cursor, setCursor] = useState(0)
   const slideCount = Math.ceil((categories?.length ?? 0) / OFFSET) || 1

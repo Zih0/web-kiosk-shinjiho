@@ -1,8 +1,8 @@
-import React, { FC, useContext } from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
 
 import { SelectedOptionType } from 'src/contexts/CartContext'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { useLanguage } from 'src/contexts/InternationalizationContext'
 import { ProductOptionDetailType, ProductOptionType } from 'src/types/api/product'
 
 import OptionItem from './OptionItem'
@@ -14,7 +14,7 @@ interface Props {
 }
 
 const OptionList: FC<Props> = ({ options, selectedOption, onClickOptionDetail }) => {
-  const { language } = useContext(InternationalizationContext)
+  const language = useLanguage()
 
   return (
     <>

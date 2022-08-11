@@ -1,8 +1,8 @@
-import React, { FC, useContext, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 import { useCartAction, useCartList } from 'src/contexts/CartContext'
-import { InternationalizationContext } from 'src/contexts/InternationalizationContext'
+import { useLanguage } from 'src/contexts/InternationalizationContext'
 import useTranslation from 'src/hooks/useTranslation'
 import { useRouter } from 'src/lib/router/Routes'
 import { PaymentMethodType } from 'src/types/api/order'
@@ -21,7 +21,7 @@ interface Props {
 }
 
 const ReceiptModal: FC<Props> = ({ open, onClose, orderNumber, paymentMethod, paidAmount, totalAmount, changes }) => {
-  const { language } = useContext(InternationalizationContext)
+  const language = useLanguage()
   const t = useTranslation('modal')
   const router = useRouter()
   const cartList = useCartList()
