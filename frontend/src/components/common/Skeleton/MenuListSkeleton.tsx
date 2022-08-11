@@ -18,12 +18,8 @@ const MenuListSkeleton = () => {
 export default MenuListSkeleton
 
 const Wrapper = styled.div`
-  width: calc(100% + 20px);
-  margin-top: 60px;
-
-  height: 894px;
-
-  overflow-y: auto;
+  width: 100%;
+  height: 100%;
 
   display: grid;
   grid-template-columns: repeat(3, 312px);

@@ -35,6 +35,8 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 40px;
+
+  background-color: ${({ theme }) => theme.color.white};
 `
 
 const ErrorMessage = styled.p`

@@ -1,11 +1,14 @@
+import { AxiosError } from 'axios'
 import { FC, useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
 import { orderMenu } from 'src/api/order/order'
-import { useCartList, useCartSummary } from 'src/contexts/CartContext'
+import { useCartAction, useCartList, useCartSummary } from 'src/contexts/CartContext'
 import useModal from 'src/hooks/useModal'
+import { useRouter } from 'src/lib/router/Routes'
 import { OrderReceiptType, PaymentMethodType } from 'src/types/api/order'
 
+import ErrorFallback from '../Error/ErrorFallback'
 import ReceiptModal from '../Modal/ReceiptModal/ReceiptModal'
 import Portal from '../Portal/Portal'
 
@@ -19,8 +22,11 @@ interface Props {
 // reference: https://codepen.io/search/pens?q=coffee+loading
 const PaymentLoader: FC<Props> = ({ open, onClose, paymentMethod, paidAmount }) => {
   const cartList = useCartList()
+  const router = useRouter()
+  const { clear } = useCartAction()
   const { price } = useCartSummary()
   const { open: openReceipt, onOpen: onOpenReceipt, onClose: onCloseReceipt } = useModal()
+  const [error, setError] = useState<AxiosError | null>(null)
   const [orderResponse, setOrderResponse] = useState<OrderReceiptType>({
     order_number: 0,
     payment_method: paymentMethod,
@@ -28,9 +34,15 @@ const PaymentLoader: FC<Props> = ({ open, onClose, paymentMethod, paidAmount }) 
     total_amount: 0,
   })
 
+  const backHomePage = () => {
+    router('/')
+    clear()
+  }
+
   const orderMenus = async () => {
     const orderProductsList = cartList.map((cartItem) => ({ product_id: cartItem.id, count: cartItem.count }))
     const newPaidAmount = paymentMethod === 'credit_card' ? price : paidAmount
+
     const data = await orderMenu({
       paymentMethod,
       paidAmount: newPaidAmount as number,
@@ -48,12 +60,21 @@ const PaymentLoader: FC<Props> = ({ open, onClose, paymentMethod, paidAmount }) 
       try {
         await orderMenus()
         onOpenReceipt()
-      } catch (err) {
-        // Alert
-        console.error(err)
+      } catch (err: any) {
+        setError(err)
       }
     }, randDelay)
   }, [open])
+
+  // TODO : Error Boundary
+  if (error)
+    return (
+      <Portal>
+        <Wrapper>
+          <ErrorFallback reset={backHomePage} message={error.message} />
+        </Wrapper>
+      </Portal>
+    )
 
   if (!open) return null
 

@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react'
 import styled from 'styled-components'
 
 import useModal from 'src/hooks/useModal'
+import useTranslation from 'src/hooks/useTranslation'
 
 import Image from '../../Image/Image'
 import PaymentLoader from '../../Loader/PaymentLoader'
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const CardInputModal: FC<Props> = ({ open, onClose }) => {
+  const t = useTranslation('modal')
   const { open: openLoader, onOpen: onOpenLoader, onClose: onCloseLoader } = useModal()
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const CardInputModal: FC<Props> = ({ open, onClose }) => {
 
   return (
     <>
-      <Modal open={open} onClose={onClose} title="카드를 넣어주세요" hasCloseButton>
+      <Modal open={open} onClose={onClose} title={t('inputCardTitle')}>
         <ImageWrapper>
           <Image name="imagePosMachine" width={526} height={526} />
         </ImageWrapper>

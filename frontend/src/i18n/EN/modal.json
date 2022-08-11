@@ -22,5 +22,7 @@
   "receiptCloseAnnounce2": "seconds",
   "receiptSubmitText": "OK",
   "requiredOptionErrorToast": "Select Required Option",
-  "exceededAmountErrorToast": "The amount you can put in has been exceeded."
+  "exceededAmountErrorToast": "The amount you can put in has been exceeded.",
+  "lackCashErrorToast": "Put more money into it",
+  "inputCardTitle": "Input Credit Card"
 }
