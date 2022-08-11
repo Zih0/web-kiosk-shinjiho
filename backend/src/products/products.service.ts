@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
+import { ERROR_MESSAGE } from 'src/utils/error-message'
 import { Repository } from 'typeorm'
 import { CreateProductOptionDetailRequestDto } from './dto/create-product-option-detail.dto'
 import { CreateProductOptionRequestDto } from './dto/create-product-option.dto'
@@ -26,6 +27,8 @@ export class ProductsService {
   }
 
   async findOneById(categoryId: number): Promise<Product[]> {
+    if (categoryId === 6) throw new HttpException('데모를 위한 에러 처리입니다.', HttpStatus.INTERNAL_SERVER_ERROR)
+
     return await this.productsRepository.find({ where: { category_id: categoryId } })
   }
 
