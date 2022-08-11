@@ -33,6 +33,10 @@ const CashInputModal: FC<Props> = ({ open, onClose }) => {
   }
 
   const onSubmit = () => {
+    if (price > cash) {
+      toast.error(t('lackCashErrorToast'))
+      return
+    }
     onClose()
     onOpenLoader()
   }
