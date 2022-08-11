@@ -17,7 +17,9 @@ const Main = () => {
     <Wrapper>
       <Header />
       <CategoryTabs selected={selectedCategoryId} onClickCategory={onClickCategory} />
-      <MenuList selected={selectedCategoryId} />
+      <MenuListWrapper>
+        <MenuList selected={selectedCategoryId} />
+      </MenuListWrapper>
       <Cart />
     </Wrapper>
   )
@@ -29,4 +31,24 @@ const Wrapper = styled.div`
   height: 100%;
   position: relative;
   padding: 0 42px;
+`
+
+const MenuListWrapper = styled.div`
+  margin-top: 60px;
+
+  width: calc(100% + 20px);
+
+  height: 894px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: ${({ theme }) => theme.color.gray100};
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: ${({ theme }) => theme.color.gray500};
+    border-radius: 8px;
+  }
 `
