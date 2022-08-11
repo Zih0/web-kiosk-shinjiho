@@ -18,6 +18,8 @@ export const useAxios = <T, E>(key: string | Array<number | string>, asyncFn: ()
   const process = useCallback(async () => {
     if (serverState.cache[stringifiedKey]) {
       setData(serverState.cache[stringifiedKey])
+      setError(null)
+      setLoading(false)
       return
     }
 
