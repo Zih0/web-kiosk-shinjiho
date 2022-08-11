@@ -1,0 +1,24 @@
+name: deploy
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run scripts in server
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd ~/web-moneybook-5/client
+            npm install
+            npm run build
+            pm2 reload client
+            cd ~/web-moneybook-5/server
+            npm install
+            pm2 reload server
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          key: ${{ secrets.PRIVATE_KEY }}
