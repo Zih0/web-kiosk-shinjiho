@@ -79,7 +79,11 @@ const Wrapper = styled.div`
 `
 
 const CartListWrapper = styled.div`
+  width: 100%;
   min-height: 200px;
+
+  overflow-x: auto;
+
   display: flex;
   gap: 24px;
 `

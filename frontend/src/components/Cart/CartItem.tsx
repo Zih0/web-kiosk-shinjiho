@@ -56,7 +56,7 @@ export default CartItem
 
 const Wrapper = styled.div`
   position: relative;
-  width: 160px;
+  min-width: 160px;
   height: 200px;
 
   display: flex;
