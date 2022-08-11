@@ -2,7 +2,7 @@ name: deploy
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build:
@@ -12,11 +12,10 @@ jobs:
         uses: fifsky/ssh-action@master
         with:
           command: |
-            cd ~/web-moneybook-5/client
+            cd ~/web-kiosk-shinjiho/frontend
             npm install
             npm run build
-            pm2 reload client
-            cd ~/web-moneybook-5/server
+            cd ~/web-kiosk-shinjiho/backend
             npm install
             pm2 reload server
           host: ${{ secrets.HOST }}
