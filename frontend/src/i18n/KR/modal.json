@@ -21,5 +21,6 @@
   "receiptCloseAnnounce1": "주의 : 이 화면은",
   "receiptCloseAnnounce2": "초 뒤에 자동으로 사라집니다",
   "receiptSubmitText": "확인",
-  "requiredOptionErrorToast": "필수 옵션을 선택해주세요"
+  "requiredOptionErrorToast": "필수 옵션을 선택해주세요",
+  "exceededAmountErrorToast": "투입하실 수 있는 금액이 초과되었습니다"
 }

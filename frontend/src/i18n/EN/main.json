@@ -6,5 +6,6 @@
   "totalCount": "Total Quantity",
   "price": "Price",
   "disappearText1": "If there is no response for ",
-  "disappearText2": "seconds, it is automatically terminated."
+  "disappearText2": "seconds, it is automatically terminated.",
+  "notMenuErrorToast": "Choose a Menu"
 }

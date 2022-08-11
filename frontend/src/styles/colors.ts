@@ -8,4 +8,6 @@ export const colors = {
   gray100: '#f1f1f1',
   red: '#ea4a35',
   red100: '#f87563',
+  success: '#07bc0c',
+  error: '#e74c3c',
 }
