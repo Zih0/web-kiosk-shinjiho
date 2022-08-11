@@ -7,7 +7,7 @@ import { useAxios } from 'src/hooks/useAxios'
 
 import CategoryTabsSkeleton from './CategoryTabsSkeleton'
 
-import Button from '../../common/Button/Button'
+import Button from '../common/Button/Button'
 
 interface Props {
   selected: number

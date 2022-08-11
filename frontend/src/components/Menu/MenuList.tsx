@@ -11,7 +11,7 @@ import { ProductType } from 'src/types/api/product'
 
 import Menu from './Menu'
 
-import MenuListSkeleton from '../../common/Skeleton/MenuListSkeleton'
+import MenuListSkeleton from '../common/Skeleton/MenuListSkeleton'
 
 interface Props {
   selected: number

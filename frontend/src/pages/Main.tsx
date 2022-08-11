@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 
-import Cart from 'src/components/MainPage/Cart/Cart'
-import CategoryTabs from 'src/components/MainPage/CategoryTabs/CategoryTabs'
-import MenuList from 'src/components/MainPage/Menu/MenuList'
+import Cart from 'src/components/Cart/Cart'
+import CategoryTabs from 'src/components/CategoryTabs/CategoryTabs'
+import MenuList from 'src/components/Menu/MenuList'
 import Header from 'src/components/common/Header/Header'
 
 const Main = () => {
