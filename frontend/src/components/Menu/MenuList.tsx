@@ -9,9 +9,9 @@ import { useAxios } from 'src/hooks/useAxios'
 import { useRouter } from 'src/lib/router/Routes'
 import { ProductType } from 'src/types/api/product'
 
-import MenuListSkeleton from './MenuListSkeleton'
+import Menu from './Menu'
 
-import Menu from '../Menu/Menu'
+import MenuListSkeleton from '../common/Skeleton/MenuListSkeleton'
 
 interface Props {
   selected: number
