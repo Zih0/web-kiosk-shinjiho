@@ -63,18 +63,22 @@ const ProductName = styled.p`
 
 const ProductPrice = styled.p`
   margin-top: 8px;
+
   font-size: 32px;
   line-height: 140%;
-  ${({ theme }) => theme.color.black}
+
+  color: ${({ theme }) => theme.color.black};
 `
 
 const CountWrapper = styled.div`
+  width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
 
   span {
-    width: 30px;
+    width: 60px;
     font-weight: 600;
     font-size: 48px;
     line-height: 57px;
