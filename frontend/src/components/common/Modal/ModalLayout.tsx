@@ -77,34 +77,6 @@ const Wrapper = styled.div`
   z-index: 1000;
 `
 
-export const slideUp = keyframes`
-  from {
-  
-    transform: translateY(20px);
-  }
-  to {
-    transform: translateY(0);
-  }
-`
-
-export const fadeIn = keyframes`
-  from {
-    opacity:0;
-  }
-  to {
-    opacity:1;
-  }
-`
-
-export const fadeOut = keyframes`
-  from {
-    opacity:1;
-  }
-  to {
-    opacity:0;
-  }
-`
-
 const Dimmer = styled.div<{ open: boolean }>`
   position: fixed;
   top: 0;
@@ -114,17 +86,17 @@ const Dimmer = styled.div<{ open: boolean }>`
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 1000;
 
-  ${({ open }) =>
+  ${({ open, theme }) =>
     css`
-      animation: ${open ? fadeIn : fadeOut} 0.4s forwards;
+      animation: ${open ? theme.animation.fadeIn : theme.animation.fadeOut} 0.4s forwards;
     `};
 `
 
 const Content = styled.div<{ open: boolean }>`
   z-index: 1000;
 
-  ${({ open }) =>
+  ${({ open, theme }) =>
     css`
-      animation: ${open ? slideUp : fadeOut} 0.4s forwards;
+      animation: ${open ? theme.animation.slideUp : theme.animation.fadeOut} 0.4s forwards;
     `};
 `

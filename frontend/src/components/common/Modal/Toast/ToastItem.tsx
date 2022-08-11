@@ -51,24 +51,6 @@ const ToastItem: FC<Props> = ({ id, status, message, timeout }) => {
 
 export default ToastItem
 
-export const fadeIn = keyframes`
-  from {
-    opacity:0;
-  }
-  to {
-    opacity:1;
-  }
-`
-
-export const fadeOut = keyframes`
-  from {
-    opacity:1;
-  }
-  to {
-    opacity:0;
-  }
-`
-
 const ToastWrapper = styled.div<{ status: ToastStatus; visible: boolean }>`
   padding: 24px 30px;
 
@@ -79,8 +61,8 @@ const ToastWrapper = styled.div<{ status: ToastStatus; visible: boolean }>`
 
   border-radius: 4px;
 
-  ${({ visible }) =>
+  ${({ visible, theme }) =>
     css`
-      animation: ${visible ? fadeIn : fadeOut} 0.4s forwards;
+      animation: ${visible ? theme.animation.fadeIn : theme.animation.fadeOut} 0.4s forwards;
     `};
 `
