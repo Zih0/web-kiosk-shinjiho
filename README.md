@@ -9,6 +9,9 @@
 
 이에 따라 데모도 `1080x1920` 해상도로 구현했습니다. 이를 참고하시고 데모를 확인해주세요.
 
+<img width="400" src="https://user-images.githubusercontent.com/60956392/184156764-cdea33af-29af-44a0-b895-c0c4d724194d.png" />
+
+
 ## FlowChart
 
 <img width="1270" alt="스크린샷 2022-08-10 오후 8 25 10" src="https://user-images.githubusercontent.com/60956392/183889698-6c058fdf-cb0a-4183-b2e8-10202ec58da9.png">
