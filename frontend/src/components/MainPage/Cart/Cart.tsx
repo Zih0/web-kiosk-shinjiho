@@ -9,6 +9,7 @@ import { useRouter } from 'src/lib/router/Routes'
 import { priceToString } from 'src/utils/priceUtil'
 
 import CartItem from './CartItem'
+import Time from './Time'
 
 const Cart = () => {
   const router = useRouter()
@@ -33,6 +34,7 @@ const Cart = () => {
   return (
     <>
       <Wrapper>
+        <Time />
         <CartListWrapper>
           {cartList.map((cartItem) => (
             <CartItem key={cartItem.cartId} cartItem={cartItem} />
