@@ -78,6 +78,9 @@ const OptionSelectModal: FC<Props> = ({ open, onClose, id, imgUrl, krName, enNam
       thumbnail: imgUrl,
       selectedOptions: selectedOption,
     })
+
+    setExtraPrice({})
+
     onCloseModal()
   }
 
