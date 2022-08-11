@@ -10,7 +10,7 @@ export const animations = {
     transform: translateX(200%);
   }
 `,
- slideUp: keyframes`
+  slideUp: keyframes`
  from {
  
    transform: translateY(20px);
